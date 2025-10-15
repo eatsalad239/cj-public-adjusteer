@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-cj-red rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-cj-dark;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-cj-red text-white px-6 py-3 rounded-lg font-semibold 
+           hover:bg-cj-dark transition-all duration-300 transform hover:scale-105
+           focus:outline-none focus:ring-4 focus:ring-cj-red/30;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-800 text-white px-6 py-3 rounded-lg font-semibold 
+           hover:bg-gray-900 transition-all duration-300
+           focus:outline-none focus:ring-4 focus:ring-gray-800/30;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-cj-red text-cj-red px-6 py-3 rounded-lg font-semibold
+           hover:bg-cj-red hover:text-white transition-all duration-300
+           focus:outline-none focus:ring-4 focus:ring-cj-red/30;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-lg p-6 border border-gray-100
+           hover:shadow-xl transition-shadow duration-300;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg
+           focus:ring-2 focus:ring-cj-red focus:border-transparent
+           transition-all duration-200;
+  }
+  
+  .badge-new {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
+           bg-green-100 text-green-800 animate-pulse-slow;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-cj-red to-cj-light bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
