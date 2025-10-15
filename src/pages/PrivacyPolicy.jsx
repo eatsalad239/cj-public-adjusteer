@@ -47,7 +47,7 @@ const PrivacyPolicy = () => {
           <p className="mb-4">
             For questions about this privacy policy:<br />
             Email: info@cjclaimservices.com<br />
-            Phone: 504-555-0100
+            Phone: (504) 252-8204
           </p>
 
           <p className="text-sm text-gray-500 mt-8">

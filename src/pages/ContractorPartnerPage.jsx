@@ -58,13 +58,13 @@ const ContractorPartnerPage = () => {
     },
     {
       icon: UserGroupIcon,
-      title: 'Keep Your Customers',
-      description: 'Don\'t lose clients to competitors. We handle their claims, you get the repair contract.',
+      title: 'Mutual Referral Network',
+      description: 'We refer customers needing repairs to trusted contractors, and contractors refer customers needing claims help to us. Each party operates independently.',
     },
     {
       icon: DocumentTextIcon,
-      title: 'Co-Marketing Support',
-      description: 'Joint marketing materials, co-branded content, and educational resources for your customers.',
+      title: 'Educational Resources',
+      description: 'Access to educational materials about Act 144 and insurance claims to share with your customers. All parties operate independently.',
     },
   ];
 
@@ -117,7 +117,7 @@ const ContractorPartnerPage = () => {
               <a href="#apply" className="btn-primary">
                 Become a Partner
               </a>
-              <a href="tel:504-555-0100" className="btn-outline !border-white !text-white hover:!bg-white hover:!text-cj-dark inline-flex items-center justify-center">
+              <a href="tel:504-252-8204" className="btn-outline !border-white !text-white hover:!bg-white hover:!text-cj-dark inline-flex items-center justify-center">
                 <PhoneIcon className="h-5 w-5 mr-2" />
                 Speak to Partnership Team
               </a>
@@ -196,11 +196,11 @@ const ContractorPartnerPage = () => {
                 </li>
                 <li className="flex items-start">
                   <CheckCircleIcon className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                  <span className="text-gray-700">Keep your insurance-based revenue</span>
+                  <span className="text-gray-700">Maintain repair contracts through mutual referrals</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircleIcon className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                  <span className="text-gray-700">Get priority treatment for your referrals</span>
+                  <span className="text-gray-700">We refer repair work back to trusted partners</span>
                 </li>
               </ul>
             </motion.div>
@@ -450,11 +450,11 @@ const ContractorPartnerPage = () => {
               Keep your insurance-based revenue flowing legally and ethically.
             </p>
             <a 
-              href="tel:504-555-0100" 
+              href="tel:504-252-8204" 
               className="bg-white text-cj-red px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors inline-flex items-center"
             >
               <PhoneIcon className="h-5 w-5 mr-2" />
-              Call Partnership Team: 504-555-0100
+              Call Partnership Team: (504) 252-8204
             </a>
           </motion.div>
         </div>

@@ -29,9 +29,9 @@ const Layout = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4">
-              <a href="tel:504-555-0100" className="flex items-center hover:text-gray-300">
+              <a href="tel:504-252-8204" className="flex items-center hover:text-gray-300">
                 <PhoneIcon className="h-4 w-4 mr-1" />
-                <span>504-555-0100</span>
+                <span>(504) 252-8204</span>
               </a>
               <a href="mailto:info@cjclaimservices.com" className="hidden sm:flex items-center hover:text-gray-300">
                 <EnvelopeIcon className="h-4 w-4 mr-1" />
@@ -170,7 +170,7 @@ const Layout = () => {
               <ul className="space-y-2 text-sm text-gray-400">
                 <li className="flex items-center">
                   <PhoneIcon className="h-4 w-4 mr-2" />
-                  <a href="tel:504-555-0100" className="hover:text-white">504-555-0100</a>
+                  <a href="tel:504-252-8204" className="hover:text-white">(504) 252-8204</a>
                 </li>
                 <li className="flex items-center">
                   <EnvelopeIcon className="h-4 w-4 mr-2" />

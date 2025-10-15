@@ -54,7 +54,7 @@ const HomePage = () => {
     {
       icon: ChartBarIcon,
       title: 'Professional Advocacy',
-      description: 'Expert negotiation and documentation to pursue fair settlements for our clients.',
+      description: 'Professional documentation and advocacy to pursue fair settlements for our clients.',
     },
     {
       icon: BoltIcon,
@@ -197,11 +197,11 @@ const HomePage = () => {
                 Schedule Free Consultation
               </Link>
               <a 
-                href="tel:504-555-0100" 
+                href="tel:504-252-8204" 
                 className="border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white/10 transition-colors inline-flex items-center justify-center"
               >
                 <PhoneIcon className="h-5 w-5 mr-2" />
-                Call Now: 504-555-0100
+                Call Now: (504) 252-8204
               </a>
             </div>
           </motion.div>

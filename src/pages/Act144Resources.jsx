@@ -121,7 +121,7 @@ const Act144Resources = () => {
                 <ul className="space-y-2 text-sm">
                   <li>• Expert claim representation</li>
                   <li>• Maximize your settlement</li>
-                  <li>• Handle all insurance negotiations</li>
+                  <li>• Handle all insurance claim matters</li>
                   <li>• Full legal compliance</li>
                 </ul>
               </div>

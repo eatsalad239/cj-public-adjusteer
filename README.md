@@ -7,11 +7,11 @@ A comprehensive B2B platform for CJ Claim Services, designed to help Louisiana c
 ## 🚀 Features
 
 ### For Contractors
-- **Act 144 Compliance Solution**: Legal partnership program for contractors affected by new Louisiana insurance laws
-- **Professional Partnership Program**: Collaborative approach for Act 144 compliance
+- **Act 144 Compliance Solution**: Professional referral partnership for contractors affected by new Louisiana insurance laws
+- **Mutual Referral Program**: We refer repair work to contractors, contractors refer claims to us - all parties operate independently
 - **Partner Portal**: Track customer claims and access resources (coming soon)
 - **Educational Resources**: Complete Act 144 compliance guide and best practices
-- **Co-Marketing Support**: Joint marketing materials and customer education resources
+- **Clear Separation**: All materials emphasize independent operation to maintain compliance
 
 ### For Commercial Property Owners
 - **Expert Claim Management**: Professional handling of complex commercial insurance claims

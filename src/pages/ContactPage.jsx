@@ -23,8 +23,8 @@ const ContactPage = () => {
               <PhoneIcon className="h-12 w-12 text-cj-red mb-4" />
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Call Us</h3>
               <p className="text-gray-600 mb-4">Speak directly with our team</p>
-              <a href="tel:504-555-0100" className="text-cj-red font-semibold hover:text-cj-dark">
-                504-555-0100
+              <a href="tel:504-252-8204" className="text-cj-red font-semibold hover:text-cj-dark">
+                (504) 252-8204
               </a>
               <p className="text-sm text-gray-500 mt-2">24/7 Emergency Response Available</p>
             </div>

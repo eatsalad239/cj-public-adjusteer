@@ -46,7 +46,7 @@ const LegalDisclaimer = () => {
           <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Contact Information</h2>
           <p className="mb-4">
             If you have any questions about this disclaimer or our services, please contact us at:<br />
-            Phone: 504-555-0100<br />
+            Phone: (504) 252-8204<br />
             Email: info@cjclaimservices.com
           </p>
 

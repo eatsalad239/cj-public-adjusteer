@@ -221,8 +221,8 @@ const CommercialServicesPage = () => {
               },
               {
                 step: '3',
-                title: 'Professional Negotiation',
-                description: 'Expert advocacy with your insurance company to pursue a fair and appropriate settlement.',
+                title: 'Professional Advocacy',
+                description: 'Expert representation and documentation to pursue a fair and appropriate settlement with your insurance company.',
                 icon: ChartBarIcon,
               },
             ].map((item, index) => (
@@ -438,11 +438,11 @@ const CommercialServicesPage = () => {
             <div className="mt-8 text-center">
               <p className="text-gray-600 mb-4">Need immediate assistance?</p>
               <a 
-                href="tel:504-555-0100" 
+                href="tel:504-252-8204" 
                 className="btn-outline inline-flex items-center"
               >
                 <PhoneIcon className="h-5 w-5 mr-2" />
-                Call Now: 504-555-0100
+                Call Now: (504) 252-8204
               </a>
             </div>
           </motion.div>

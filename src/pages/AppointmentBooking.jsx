@@ -179,9 +179,9 @@ const AppointmentBooking = () => {
 
           <div className="mt-8 text-center">
             <p className="text-gray-600 mb-4">Prefer to call?</p>
-            <a href="tel:504-555-0100" className="btn-outline inline-flex items-center">
+            <a href="tel:504-252-8204" className="btn-outline inline-flex items-center">
               <PhoneIcon className="h-5 w-5 mr-2" />
-              504-555-0100
+              (504) 252-8204
             </a>
           </div>
         </motion.div>
