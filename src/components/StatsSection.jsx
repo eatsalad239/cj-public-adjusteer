@@ -6,8 +6,8 @@ const StatsSection = () => {
   const stats = [
     { value: 500, suffix: '+', label: 'Claims Handled', prefix: '' },
     { value: 12.5, suffix: 'M', label: 'Recovered for Clients', prefix: '$' },
-    { value: 40, suffix: '%', label: 'Higher Settlements', prefix: '+' },
-    { value: 98, suffix: '%', label: 'Success Rate', prefix: '' },
+    { value: 15, suffix: '+', label: 'Years Experience', prefix: '' },
+    { value: 24, suffix: '/7', label: 'Emergency Response', prefix: '' },
   ];
 
   return (

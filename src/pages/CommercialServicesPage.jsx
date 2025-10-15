@@ -50,7 +50,7 @@ const CommercialServicesPage = () => {
     { value: '$25M+', label: 'Commercial Claims Recovered' },
     { value: '200+', label: 'Business Clients Served' },
     { value: '48hr', label: 'Average Response Time' },
-    { value: '45%', label: 'Higher Than Initial Offers' },
+    { value: '1,000+', label: 'Claims Handled' },
   ];
 
   const handleSubmit = async (e) => {
@@ -94,8 +94,8 @@ const CommercialServicesPage = () => {
               Commercial Property <span className="gradient-text">Claims Experts</span>
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-              Protecting Louisiana businesses with expert commercial insurance claim representation. 
-              We understand the complexities of commercial claims and fight for maximum settlements.
+              Licensed public adjusters serving Louisiana businesses with professional insurance claim representation. 
+              We understand the complexities of commercial claims and advocate for fair settlements.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
               {stats.map((stat, index) => (
@@ -221,8 +221,8 @@ const CommercialServicesPage = () => {
               },
               {
                 step: '3',
-                title: 'Maximum Settlement',
-                description: 'Expert negotiation with your insurance company to secure the highest possible settlement.',
+                title: 'Professional Negotiation',
+                description: 'Expert advocacy with your insurance company to pursue a fair and appropriate settlement.',
                 icon: ChartBarIcon,
               },
             ].map((item, index) => (

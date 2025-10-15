@@ -267,7 +267,7 @@ const ContractorPartnerPage = () => {
                 Apply for Partnership
               </h2>
               <p className="text-xl text-gray-600">
-                Takes less than 2 minutes. Get approved within 24 hours.
+                Submit your information for professional partnership consideration.
               </p>
             </div>
 

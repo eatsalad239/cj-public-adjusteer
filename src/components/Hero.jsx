@@ -21,13 +21,13 @@ const Hero = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
-              Your Insurance Claim <span className="gradient-text">Experts</span> in Louisiana
+              Licensed Public <span className="gradient-text">Adjusters</span> in Louisiana
             </h1>
             
             <p className="text-xl text-gray-300 mb-8">
-              <span className="font-semibold">Contractors:</span> Can't handle insurance claims anymore? 
-              Partner with us for Act 144 compliance. <br/><br/>
-              <span className="font-semibold">Property Owners:</span> We fight to maximize your settlement 
+              <span className="font-semibold">Contractors:</span> Need Act 144 compliant claims assistance? 
+              Partner with licensed professionals. <br/><br/>
+              <span className="font-semibold">Property Owners:</span> We advocate for fair insurance settlements 
               while you focus on recovery.
             </p>
             

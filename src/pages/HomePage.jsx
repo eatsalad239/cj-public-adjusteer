@@ -53,8 +53,8 @@ const HomePage = () => {
     },
     {
       icon: ChartBarIcon,
-      title: '40% Higher Settlements',
-      description: 'On average, our clients receive 40% more than initial insurance offers.',
+      title: 'Professional Advocacy',
+      description: 'Expert negotiation and documentation to pursue fair settlements for our clients.',
     },
     {
       icon: BoltIcon,
@@ -143,8 +143,8 @@ const HomePage = () => {
               Why Louisiana Trusts CJ Claim Services
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              With over 15 years of experience and hundreds of successful claims, 
-              we're the public adjusters that insurance companies respect and clients trust.
+              With over 15 years of experience serving Louisiana property owners, 
+              we provide professional public adjusting services with integrity and expertise.
             </p>
           </motion.div>
 

@@ -14,10 +14,11 @@ const LegalDisclaimer = () => {
             Louisiana state laws and regulations, including Act 144.
           </p>
 
-          <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">No Legal Advice</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Professional Services Disclaimer</h2>
           <p className="mb-4">
-            The content on this website does not constitute legal advice. For specific legal questions 
-            regarding insurance claims or Act 144 compliance, please consult with a qualified attorney.
+            CJ Claim Services provides licensed public adjusting services only. We do not provide legal, 
+            accounting, or contracting services. The content on this website is for informational purposes 
+            and does not constitute legal advice. For legal questions, please consult with a qualified attorney.
           </p>
 
           <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Act 144 Compliance</h2>
@@ -27,18 +28,18 @@ const LegalDisclaimer = () => {
             on behalf of policyholders. We do not engage in any activities prohibited by Act 144.
           </p>
 
-          <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">No Guarantee of Results</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Claims Handling Disclosure</h2>
           <p className="mb-4">
-            While we work diligently to maximize claim settlements for our clients, we cannot guarantee 
-            specific outcomes. Each claim is unique and subject to the terms of the insurance policy and 
-            applicable laws.
+            CJ Claim Services works exclusively on behalf of policyholders, not insurance companies. While we 
+            advocate professionally for fair settlements, outcomes depend on policy terms, coverage limits, and 
+            documented damages. We operate on a contingency fee basis as permitted by Louisiana law.
           </p>
 
-          <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Contractor Partnerships</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Professional Relationships</h2>
           <p className="mb-4">
-            Our contractor partnership program is designed to ensure full compliance with Act 144. 
-            Contractors participating in our program must adhere to all applicable laws and regulations. 
-            Referral fees are paid in accordance with Louisiana law.
+            CJ Claim Services maintains professional relationships with contractors in accordance with Louisiana 
+            Department of Insurance regulations. All parties must operate independently within their licensed 
+            scope of practice. Any referral arrangements comply with Louisiana insurance laws and regulations.
           </p>
 
           <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Contact Information</h2>
