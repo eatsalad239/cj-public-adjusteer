@@ -25,11 +25,11 @@ const PartnerPortal = () => {
             <ul className="space-y-2 text-gray-600 mb-8">
               <li className="flex items-center">
                 <ChartBarIcon className="h-5 w-5 text-cj-red mr-3" />
-                Real-time referral tracking
+                Track customer claim status
               </li>
               <li className="flex items-center">
                 <CurrencyDollarIcon className="h-5 w-5 text-cj-red mr-3" />
-                Commission tracking and reports
+                Access educational resources
               </li>
             </ul>
             <a href="/contractor-partners" className="btn-primary w-full text-center">

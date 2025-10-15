@@ -48,8 +48,8 @@ const ContractorPartnerPage = () => {
   const partnerBenefits = [
     {
       icon: CurrencyDollarIcon,
-      title: 'Referral Commissions',
-      description: 'Earn generous referral fees for every client you send our way. Average commission: $500-2,500 per successful claim.',
+      title: 'Grow Your Business',
+      description: 'Focus on profitable repair work while we handle the complex insurance claim process for your customers.',
     },
     {
       icon: ShieldCheckIcon,
@@ -188,7 +188,7 @@ const ContractorPartnerPage = () => {
                 </li>
                 <li className="flex items-start">
                   <CheckCircleIcon className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                  <span className="text-gray-700">Earn referral commissions</span>
+                  <span className="text-gray-700">Build stronger customer relationships</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircleIcon className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />

@@ -81,8 +81,8 @@ app.post('/api/partner-application', async (req, res) => {
         <ul>
           <li>Our partnership team will review your application</li>
           <li>We'll schedule a brief consultation call</li>
-          <li>Upon approval, you'll receive partnership materials and training</li>
-          <li>Start earning referral commissions immediately</li>
+          <li>Learn how we can work together under Act 144</li>
+          <li>Start providing better service to your customers</li>
         </ul>
         <p>In the meantime, feel free to call us at 504-555-0100 if you have any questions.</p>
         <p>Best regards,<br>CJ Claim Services Team</p>

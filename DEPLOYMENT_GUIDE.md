@@ -13,7 +13,7 @@ This platform has been developed in accordance with:
 - [ ] Have legal counsel review all content for compliance
 - [ ] Verify all claims and statements are factual and defensible
 - [ ] Ensure fee disclosures meet Louisiana requirements
-- [ ] Confirm referral program structure complies with regulations
+- [ ] Ensure no prohibited referral fee arrangements
 
 ### 2. License Verification
 - [ ] Display Louisiana public adjuster license number prominently
@@ -109,7 +109,7 @@ heroku config:set NODE_ENV=production
 
 2. **No Legal Advice**: Content does not constitute legal advice. Consult attorneys for legal matters.
 
-3. **Referral Compliance**: Any referral arrangements must comply with Louisiana insurance laws and regulations.
+3. **No Prohibited Payments**: Do not pay referral fees to contractors or other unlicensed entities as prohibited by Louisiana insurance laws.
 
 4. **Fee Disclosure**: Ensure all fee arrangements are disclosed as required by Louisiana law.
 

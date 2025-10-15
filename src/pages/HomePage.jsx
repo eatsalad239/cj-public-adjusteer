@@ -27,7 +27,7 @@ const HomePage = () => {
     {
       icon: UserGroupIcon,
       title: 'Contractor Partnership Program',
-      description: 'NEW: Partner with us for Act 144 compliance. We handle the claims, you focus on the repairs. Win-win referral program.',
+      description: 'NEW: Partner with us for Act 144 compliance. We handle the claims professionally while you focus on repairs.',
       link: '/contractor-partners',
       badge: 'Act 144 Solution',
     },

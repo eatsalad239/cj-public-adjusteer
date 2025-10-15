@@ -39,7 +39,8 @@ const LegalDisclaimer = () => {
           <p className="mb-4">
             CJ Claim Services maintains professional relationships with contractors in accordance with Louisiana 
             Department of Insurance regulations. All parties must operate independently within their licensed 
-            scope of practice. Any referral arrangements comply with Louisiana insurance laws and regulations.
+            scope of practice. We do not pay referral fees to unlicensed individuals or entities. All operations 
+            comply with Louisiana insurance laws and regulations.
           </p>
 
           <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Contact Information</h2>

@@ -110,9 +110,9 @@ const Act144Resources = () => {
               <div>
                 <h4 className="font-semibold mb-2">For Contractors:</h4>
                 <ul className="space-y-2 text-sm">
-                  <li>• Legal referral partnership program</li>
-                  <li>• Earn commissions on successful claims</li>
-                  <li>• Keep your repair contracts</li>
+                  <li>• Professional partnership program</li>
+                  <li>• We handle claims, you handle repairs</li>
+                  <li>• Keep your customer relationships</li>
                   <li>• Stay 100% Act 144 compliant</li>
                 </ul>
               </div>
