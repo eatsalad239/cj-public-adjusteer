@@ -13,6 +13,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 import GHLWebhook from '../utils/GHLWebhook';
+import api from '../utils/api';
 
 const CommercialServicesPage = () => {
   const [formData, setFormData] = useState({
@@ -56,10 +57,14 @@ const CommercialServicesPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await GHLWebhook.sendLead({
-        ...formData,
-        type: 'commercial_claim'
-      });
+      // Send to both API and GHL webhook
+      await Promise.all([
+        api.commercialClaim(formData),
+        GHLWebhook.sendLead({
+          ...formData,
+          type: 'commercial_claim'
+        })
+      ]);
       toast.success('Commercial claim inquiry submitted! We\'ll contact you within 24 hours.');
       // Reset form
       setFormData({

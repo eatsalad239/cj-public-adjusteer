@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { CalendarIcon, ClockIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 import GHLWebhook from '../utils/GHLWebhook';
+import api from '../utils/api';
 
 const AppointmentBooking = () => {
   const [formData, setFormData] = useState({
@@ -19,12 +20,16 @@ const AppointmentBooking = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await GHLWebhook.sendAppointment({
-        ...formData,
-        type: formData.consultationType,
-        date: formData.preferredDate,
-        time: formData.preferredTime
-      });
+      // Send to both API and GHL webhook
+      await Promise.all([
+        api.appointment(formData),
+        GHLWebhook.sendAppointment({
+          ...formData,
+          type: formData.consultationType,
+          date: formData.preferredDate,
+          time: formData.preferredTime
+        })
+      ]);
       toast.success('Appointment request submitted! We\'ll confirm within 24 hours.');
       setFormData({
         name: '', email: '', phone: '', company: '',

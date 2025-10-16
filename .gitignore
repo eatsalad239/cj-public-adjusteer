@@ -37,3 +37,7 @@ desktop.ini
 # Cache
 .cache/
 .parcel-cache/
+
+# Vercel
+.vercel
+.vercel.json.local

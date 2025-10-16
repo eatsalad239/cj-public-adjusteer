@@ -14,6 +14,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 import GHLWebhook from '../utils/GHLWebhook';
+import api from '../utils/api';
 
 const ContractorPartnerPage = () => {
   const [formData, setFormData] = useState({
@@ -71,7 +72,11 @@ const ContractorPartnerPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await GHLWebhook.sendPartnerApplication(formData);
+      // Send to both API and GHL webhook
+      await Promise.all([
+        api.partnerApplication(formData),
+        GHLWebhook.sendPartnerApplication(formData)
+      ]);
       toast.success('Partnership application submitted! We\'ll contact you within 24 hours.');
       setFormData({
         companyName: '',
