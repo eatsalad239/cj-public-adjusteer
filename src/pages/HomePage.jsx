@@ -9,11 +9,14 @@ import {
   DocumentCheckIcon,
   ChartBarIcon,
   BoltIcon,
-  PhoneIcon
+  PhoneIcon,
+  HomeIcon,
+  FireIcon
 } from '@heroicons/react/24/outline';
 import Hero from '../components/Hero';
 import StatsSection from '../components/StatsSection';
 import Act144Banner from '../components/Act144Banner';
+import DidYouKnow from '../components/DidYouKnow';
 
 const HomePage = () => {
   const services = [
@@ -67,6 +70,72 @@ const HomePage = () => {
     <div className="min-h-screen">
       <Hero />
       <Act144Banner />
+      <DidYouKnow />
+      
+      {/* Three Main CTAs Section */}
+      <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Homeowner CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow"
+            >
+              <HomeIcon className="h-16 w-16 text-cj-red mx-auto mb-4" />
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Homeowner</h3>
+              <p className="text-gray-600 mb-6">
+                Underpaid? Denied? Confused about your insurance rights? 
+                We document, present, and follow through.
+              </p>
+              <Link to="/book-appointment" className="btn-primary w-full">
+                Get Free Inspection
+              </Link>
+            </motion.div>
+
+            {/* Commercial CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow"
+            >
+              <BuildingOfficeIcon className="h-16 w-16 text-cj-red mx-auto mb-4" />
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Commercial</h3>
+              <p className="text-gray-600 mb-6">
+                Losses cost money. Don't let them cost more. 
+                Professional documentation and advocacy for business claims.
+              </p>
+              <Link to="/commercial-services" className="btn-primary w-full">
+                Protect Your Business
+              </Link>
+            </motion.div>
+
+            {/* Incident CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow border-2 border-amber-500"
+            >
+              <FireIcon className="h-16 w-16 text-amber-600 mx-auto mb-4" />
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Incident</h3>
+              <p className="text-gray-600 mb-6">
+                Roseland Industrial Fire: Free documentation for affected properties. 
+                Evidence first, then repairs.
+              </p>
+              <Link to="/community-incident" className="btn-primary !bg-amber-600 hover:!bg-amber-700 w-full">
+                Document Impact
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       <StatsSection />
 
       {/* Services Section */}

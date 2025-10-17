@@ -119,10 +119,10 @@ const Act144Resources = () => {
               <div>
                 <h4 className="font-semibold mb-2">For Property Owners:</h4>
                 <ul className="space-y-2 text-sm">
-                  <li>• Expert claim representation</li>
-                  <li>• Maximize your settlement</li>
-                  <li>• Handle all insurance claim matters</li>
-                  <li>• Full legal compliance</li>
+                  <li>• Professional claim assistance</li>
+                  <li>• Work toward fair settlements</li>
+                  <li>• Handle all insurance claim documentation</li>
+                  <li>• Full regulatory compliance</li>
                 </ul>
               </div>
             </div>

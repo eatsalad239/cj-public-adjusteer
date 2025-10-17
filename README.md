@@ -16,7 +16,7 @@ A comprehensive B2B platform for CJ Claim Services, designed to help Louisiana c
 ### For Commercial Property Owners
 - **Expert Claim Management**: Professional handling of complex commercial insurance claims
 - **24/7 Emergency Response**: Immediate documentation of damage to protect claims
-- **Professional Settlement Advocacy**: Expert representation for fair settlements
+- **Professional Claim Services**: Expert documentation and processing for fair settlements
 - **Business Interruption Claims**: Specialized expertise in lost revenue claims
 
 ### Platform Features

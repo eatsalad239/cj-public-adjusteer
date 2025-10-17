@@ -99,7 +99,7 @@ const CommercialServicesPage = () => {
               Commercial Property <span className="gradient-text">Claims Experts</span>
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-              Licensed public adjusters serving Louisiana businesses with professional insurance claim representation. 
+              Licensed public adjusters serving Louisiana businesses with professional insurance claim handling. 
               We understand the complexities of commercial claims and advocate for fair settlements.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
@@ -227,7 +227,7 @@ const CommercialServicesPage = () => {
               {
                 step: '3',
                 title: 'Professional Advocacy',
-                description: 'Expert representation and documentation to pursue a fair and appropriate settlement with your insurance company.',
+                description: 'Professional claim handling and documentation to pursue a fair and appropriate settlement with your insurance company.',
                 icon: ChartBarIcon,
               },
             ].map((item, index) => (
