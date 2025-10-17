@@ -13,8 +13,9 @@ const Layout = () => {
     { name: 'Home', href: '/' },
     { name: 'Contractor Partners', href: '/contractor-partners', highlight: true },
     { name: 'Commercial Services', href: '/commercial-services' },
+    { name: 'Resources', href: '/resources' },
     { name: 'Partner Portal', href: '/partner-portal' },
-    { name: 'Act 144 Resources', href: '/act-144-resources' },
+    { name: 'Act 144 Info', href: '/act-144-resources' },
     { name: 'Book Consultation', href: '/book-appointment', cta: true },
   ];
 
@@ -193,10 +194,14 @@ const Layout = () => {
                 <Link to="/privacy-policy" className="hover:text-white">Privacy Policy</Link>
               </div>
             </div>
-            <p className="text-xs text-gray-500 mt-4">
-              This website is for informational purposes only. CJ Claim Services operates in full compliance 
-              with Louisiana insurance laws and regulations, including Act 144. We do not provide legal advice.
-            </p>
+            <div className="mt-6 p-4 bg-gray-800 rounded-lg border border-gray-700">
+              <p className="text-sm text-gray-300 leading-relaxed">
+                <strong>Important Disclaimer:</strong> CJ Claim Services is a Louisiana-licensed public adjuster firm. 
+                We assist policyholders with claim documentation, presentation, and communications. 
+                We do not provide legal advice or negotiate on behalf of clients. 
+                For legal questions, consult an attorney.
+              </p>
+            </div>
           </div>
         </div>
       </footer>
