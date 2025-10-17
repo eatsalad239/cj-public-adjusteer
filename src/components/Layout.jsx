@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Bars3Icon, XMarkIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import Logo from './Logo';
 import GHLTracker from './GHLTracker';
+import Chatbot from './Chatbot';
 
 const Layout = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -24,6 +25,7 @@ const Layout = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <GHLTracker />
+      <Chatbot />
       
       {/* Top Bar */}
       <div className="bg-cj-dark text-white py-2 text-sm">
