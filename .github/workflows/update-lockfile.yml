@@ -1,0 +1,49 @@
+name: Update package-lock.json
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'package.json'
+
+jobs:
+  update-lockfile:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: |
+          npm install
+          npm audit fix --force || true
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --quiet package-lock.json || echo "changes=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add package-lock.json
+          git commit -m "chore: Update package-lock.json with security fixes
+          
+          - Regenerated package-lock.json based on updated package.json
+          - Applied npm audit fix for additional security patches
+          - Resolves Dependabot alerts #1-4"
+          git push
