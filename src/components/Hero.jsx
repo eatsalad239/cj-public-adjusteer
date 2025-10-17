@@ -27,7 +27,7 @@ const Hero = () => {
             <p className="text-xl text-gray-300 mb-8">
               <span className="font-semibold">Contractors:</span> Need Act 144 compliant claims assistance? 
               Work with independent licensed professionals. <br/><br/>
-              <span className="font-semibold">Property Owners:</span> We advocate for fair insurance settlements 
+              <span className="font-semibold">Property Owners:</span> We work to secure fair insurance settlements 
               while you focus on recovery.
             </p>
             
