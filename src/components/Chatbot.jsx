@@ -11,42 +11,55 @@ const Chatbot = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault();
     if (inputValue.trim() === '') return;
 
     // Add user message
     const newMessages = [...messages, { text: inputValue, sender: 'user' }];
     setMessages(newMessages);
+    const userMessage = inputValue;
     setInputValue('');
 
-    // Simulate bot response with varied messages
-    setTimeout(() => {
-      const responses = [
-        'Thank you for your message. A team member will get back to you soon.',
-        'Thanks for reaching out! We\'ll respond to you shortly.',
-        'We appreciate your message. Someone from our team will contact you soon.',
-        'Got it! A team member will be in touch with you shortly.'
-      ];
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-      setMessages([...newMessages, { text: randomResponse, sender: 'bot' }]);
-    }, 500);
+    // Add typing indicator
+    const messagesWithTyping = [...newMessages, { text: 'Typing...', sender: 'bot' }];
+    setMessages(messagesWithTyping);
+
+    try {
+      // Make POST request to OpenAI serverless API
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userMessage }),
+      });
+
+      const data = await response.json();
+
+      // Replace typing indicator with AI response
+      setMessages([...newMessages, { text: data.reply, sender: 'bot' }]);
+    } catch (error) {
+      console.error('Error fetching AI response:', error);
+      // Replace typing indicator with error message
+      setMessages([...newMessages, { text: 'Sorry, there was an error processing your message.', sender: 'bot' }]);
+    }
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
-      {/* Chat Toggle Button */}
+    <>
+      {/* Floating Button */}
       {!isOpen && (
         <button
           onClick={toggleChat}
-          className="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg transition-all duration-300"
-          aria-label="Open chat"
+          className="fixed bottom-6 right-6 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors z-50"
         >
           <svg
-            className="w-6 h-6"
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
             fill="none"
-            stroke="currentColor"
             viewBox="0 0 24 24"
+            stroke="currentColor"
           >
             <path
               strokeLinecap="round"
@@ -60,20 +73,20 @@ const Chatbot = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="bg-white rounded-lg shadow-2xl w-96 h-[500px] flex flex-col">
-          {/* Chat Header */}
+        <div className="fixed bottom-6 right-6 w-80 h-96 bg-white rounded-lg shadow-2xl flex flex-col z-50">
+          {/* Header */}
           <div className="bg-blue-600 text-white p-4 rounded-t-lg flex justify-between items-center">
             <h3 className="font-semibold">Chat with us</h3>
             <button
               onClick={toggleChat}
               className="text-white hover:text-gray-200"
-              aria-label="Close chat"
             >
               <svg
-                className="w-6 h-6"
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
                 fill="none"
-                stroke="currentColor"
                 viewBox="0 0 24 24"
+                stroke="currentColor"
               >
                 <path
                   strokeLinecap="round"
@@ -127,7 +140,7 @@ const Chatbot = () => {
           </form>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
