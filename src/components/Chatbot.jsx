@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: '¡Hola! ¿En qué puedo ayudarte?', sender: 'bot' }
+    { text: 'Hi! How can I help you today?', sender: 'bot' }
   ]);
   const [inputValue, setInputValue] = useState('');
 
@@ -20,9 +20,16 @@ const Chatbot = () => {
     setMessages(newMessages);
     setInputValue('');
 
-    // Simulate bot response
+    // Simulate bot response with varied messages
     setTimeout(() => {
-      setMessages([...newMessages, { text: 'Gracias por tu mensaje. Estoy aquí para ayudarte.', sender: 'bot' }]);
+      const responses = [
+        'Thank you for your message. A team member will get back to you soon.',
+        'Thanks for reaching out! We\'ll respond to you shortly.',
+        'We appreciate your message. Someone from our team will contact you soon.',
+        'Got it! A team member will be in touch with you shortly.'
+      ];
+      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+      setMessages([...newMessages, { text: randomResponse, sender: 'bot' }]);
     }, 500);
   };
 
@@ -33,14 +40,13 @@ const Chatbot = () => {
         <button
           onClick={toggleChat}
           className="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg transition-all duration-300"
-          aria-label="Abrir chat"
+          aria-label="Open chat"
         >
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
+            className="w-6 h-6"
             fill="none"
-            viewBox="0 0 24 24"
             stroke="currentColor"
+            viewBox="0 0 24 24"
           >
             <path
               strokeLinecap="round"
@@ -54,21 +60,20 @@ const Chatbot = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="bg-white rounded-lg shadow-2xl w-80 sm:w-96 flex flex-col" style={{ height: '500px' }}>
+        <div className="bg-white rounded-lg shadow-2xl w-96 h-[500px] flex flex-col">
           {/* Chat Header */}
           <div className="bg-blue-600 text-white p-4 rounded-t-lg flex justify-between items-center">
-            <h3 className="font-semibold text-lg">Asistente Virtual</h3>
+            <h3 className="font-semibold">Chat with us</h3>
             <button
               onClick={toggleChat}
-              className="text-white hover:text-gray-200 transition-colors"
-              aria-label="Cerrar chat"
+              className="text-white hover:text-gray-200"
+              aria-label="Close chat"
             >
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="w-6 h-6"
                 fill="none"
-                viewBox="0 0 24 24"
                 stroke="currentColor"
+                viewBox="0 0 24 24"
               >
                 <path
                   strokeLinecap="round"
@@ -81,7 +86,7 @@ const Chatbot = () => {
           </div>
 
           {/* Messages Container */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -90,13 +95,13 @@ const Chatbot = () => {
                 }`}
               >
                 <div
-                  className={`max-w-[75%] rounded-lg p-3 ${
+                  className={`max-w-[70%] p-3 rounded-lg ${
                     message.sender === 'user'
                       ? 'bg-blue-600 text-white'
                       : 'bg-gray-200 text-gray-800'
                   }`}
                 >
-                  <p className="text-sm">{message.text}</p>
+                  {message.text}
                 </div>
               </div>
             ))}
@@ -109,27 +114,14 @@ const Chatbot = () => {
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Escribe un mensaje..."
-                className="flex-1 border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-800"
+                placeholder="Type your message..."
+                className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2 transition-colors"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                  />
-                </svg>
+                Send
               </button>
             </div>
           </form>
