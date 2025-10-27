@@ -38,7 +38,7 @@ const Chatbot = () => {
       const data = await response.json();
 
       // Replace typing indicator with AI response
-      setMessages([...newMessages, { text: data.reply, sender: 'bot' }]);
+      setMessages([...newMessages, { text: data.response, sender: 'bot' }]);
     } catch (error) {
       console.error('Error fetching AI response:', error);
       // Replace typing indicator with error message
