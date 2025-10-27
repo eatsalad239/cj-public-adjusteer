@@ -3,7 +3,6 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bars3Icon, XMarkIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import Logo from './Logo';
-import GHLTracker from './GHLTracker';
 import Chatbot from './Chatbot';
 
 const Layout = () => {
@@ -24,7 +23,7 @@ const Layout = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GHLTracker />
+      
       
       {/* Top Bar */}
       <div className="bg-cj-dark text-white py-2 text-sm">
@@ -33,11 +32,11 @@ const Layout = () => {
             <div className="flex items-center space-x-4">
               <a href="tel:504-252-8204" className="flex items-center hover:text-gray-300">
                 <PhoneIcon className="h-4 w-4 mr-1" />
-                <span>(504) 252-8204</span>
+                (504) 252-8204
               </a>
               <a href="mailto:info@cjclaimsolutions.com" className="flex items-center hover:text-gray-300">
                 <EnvelopeIcon className="h-4 w-4 mr-1" />
-                <span>info@cjclaimsolutions.com</span>
+                info@cjclaimsolutions.com
               </a>
             </div>
             <div>
@@ -51,7 +50,9 @@ const Layout = () => {
       <nav className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <Logo />
+            <Link to="/">
+              <Logo />
+            </Link>
             
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
@@ -154,7 +155,6 @@ const Layout = () => {
                 </a>
               </div>
             </div>
-
             <div>
               <h3 className="font-semibold mb-4">Quick Links</h3>
               <ul className="space-y-2">
@@ -167,7 +167,6 @@ const Layout = () => {
                 ))}
               </ul>
             </div>
-
             <div>
               <h3 className="font-semibold mb-4">Service Areas</h3>
               <ul className="space-y-2 text-gray-300">
@@ -178,9 +177,8 @@ const Layout = () => {
               </ul>
             </div>
           </div>
-
           <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
-            <p>&copy; {new Date().getFullYear()} CJ Claim Solutions. All rights reserved.</p>
+            © {new Date().getFullYear()} CJ Claim Solutions. All rights reserved.
           </div>
         </div>
       </footer>
