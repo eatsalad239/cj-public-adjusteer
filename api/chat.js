@@ -37,39 +37,42 @@
  *   "error": "Error message"
  * }
  */
+
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  );
 
-  // Handle OPTIONS request for CORS preflight
+  // Handle OPTIONS request
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
   }
 
-  // Only allow POST requests
+  // Only accept POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({
       success: false,
-      error: 'Method not allowed. Please use POST request.'
+      error: 'Method not allowed. Use POST request.'
     });
   }
 
-  // Get API key from environment variable or use default for testing
-  const apiKey = process.env.GEMINI_API_KEY || 'AIzaSyB7ooFivr4gNcxtXP5RByCORwmN4N6cbog';
+  // Get API key from environment variables
+  const apiKey = process.env.GEMINI_API_KEY;
 
-  // Validate API key
   if (!apiKey) {
     return res.status(500).json({
       success: false,
-      error: 'GEMINI_API_KEY is not configured'
+      error: 'Gemini API key is not configured on the server'
     });
   }
 
-  // Extract message from request body
+  // Get message from request body
   const { message } = req.body;
 
   if (!message) {
@@ -108,7 +111,10 @@ export default async function handler(req, res) {
     const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!responseText) {
-      throw new Error('No response text received from Gemini API');
+      return res.status(200).json({
+        success: false,
+        response: "No response from AI: check your Gemini API key, quota, or model.",
+      });
     }
 
     // Return successful response
@@ -119,9 +125,9 @@ export default async function handler(req, res) {
     
   } catch (error) {
     console.error('Error calling Gemini API:', error);
-    return res.status(500).json({
+    return res.status(200).json({
       success: false,
-      error: error.message || 'Internal server error'
+      response: `There was an error: ${error.message || 'Internal server error'}`
     });
   }
 }
