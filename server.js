@@ -30,164 +30,74 @@ const transporter = nodemailer.createTransport({
 });
 
 // API Routes
-
 // Partner Application Endpoint
 app.post('/api/partner-application', async (req, res) => {
   try {
-    const { 
-      companyName, 
-      contactName, 
-      phone, 
-      email, 
-      contractorType, 
-      monthlyJobs, 
-      currentChallenge,
-      preferredContact 
-    } = req.body;
+    const { name, email, phone, company, message } = req.body;
 
-    // Email to admin
-    const adminMailOptions = {
-      from: process.env.SMTP_USER,
-      to: process.env.ADMIN_EMAIL || 'admin@cjclaimservices.com',
-      subject: `New Partner Application: ${companyName}`,
-      html: `
-        <h2>New Contractor Partner Application</h2>
-        <h3>Company Information</h3>
-        <ul>
-          <li><strong>Company:</strong> ${companyName}</li>
-          <li><strong>Contact:</strong> ${contactName}</li>
-          <li><strong>Phone:</strong> ${phone}</li>
-          <li><strong>Email:</strong> ${email}</li>
-          <li><strong>Type:</strong> ${contractorType}</li>
-          <li><strong>Monthly Jobs:</strong> ${monthlyJobs}</li>
-          <li><strong>Preferred Contact:</strong> ${preferredContact}</li>
-        </ul>
-        <h3>Current Challenge with Act 144</h3>
-        <p>${currentChallenge || 'Not specified'}</p>
-        <p><em>Application submitted: ${new Date().toLocaleString()}</em></p>
-      `,
-    };
-
-    // Confirmation email to applicant
-    const applicantMailOptions = {
-      from: process.env.SMTP_USER,
-      to: email,
-      subject: 'Partner Application Received - CJ Claim Services',
-      html: `
-        <h2>Thank You for Your Partnership Application!</h2>
-        <p>Dear ${contactName},</p>
-        <p>We've received your partnership application for ${companyName}. Our team will review your application and contact you within 24-48 hours.</p>
-        <h3>What's Next?</h3>
-        <ul>
-          <li>Our partnership team will review your application</li>
-          <li>We'll schedule a brief consultation call</li>
-          <li>Learn how we can work together under Act 144</li>
-          <li>Start providing better service to your customers</li>
-        </ul>
-        <p>In the meantime, feel free to call us at (504) 252-8204 if you have any questions.</p>
-        <p>Best regards,<br>CJ Claim Services Team</p>
-      `,
-    };
-
-    // Send emails
-    if (process.env.SMTP_USER && process.env.SMTP_PASS) {
-      await transporter.sendMail(adminMailOptions);
-      await transporter.sendMail(applicantMailOptions);
+    // Validate required fields
+    if (!name || !email || !phone) {
+      return res.status(400).json({
+        success: false,
+        message: 'Name, email, and phone are required fields'
+      });
     }
 
-    res.status(200).json({ 
-      success: true, 
-      message: 'Application submitted successfully' 
+    // Create admin notification email
+    const adminMailOptions = {
+      from: process.env.SMTP_USER || 'noreply@example.com',
+      to: process.env.ADMIN_EMAIL || 'admin@example.com',
+      subject: `New Partner Application: ${name}`,
+      html: `
+        <h2>New Partner Application</h2>
+        <h3>Contact Information</h3>
+        <ul>
+          <li><strong>Name:</strong> ${name}</li>
+          <li><strong>Company:</strong> ${company || 'Not specified'}</li>
+          <li><strong>Phone:</strong> ${phone}</li>
+          <li><strong>Email:</strong> ${email}</li>
+        </ul>
+        <h3>Message</h3>
+        <p>${message || 'No additional message'}</p>
+        <em>Application submitted: ${new Date().toLocaleString()}</em>
+      `,
+    };
+
+    // Send email if credentials are available
+    if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+      await transporter.sendMail(adminMailOptions);
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Partner application submitted successfully'
     });
   } catch (error) {
     console.error('Partner application error:', error);
-    res.status(500).json({ 
-      success: false, 
-      message: 'Failed to submit application' 
+    res.status(500).json({
+      success: false,
+      message: 'Failed to submit partner application'
     });
   }
 });
 
-// Commercial Claim Inquiry Endpoint
-app.post('/api/commercial-claim', async (req, res) => {
-  try {
-    const {
-      businessName,
-      contactName,
-      phone,
-      email,
-      propertyType,
-      damageType,
-      estimatedLoss,
-      insuranceCompany,
-      claimStatus,
-      notes
-    } = req.body;
-
-    // Email to admin
-    const adminMailOptions = {
-      from: process.env.SMTP_USER,
-      to: process.env.ADMIN_EMAIL || 'admin@cjclaimservices.com',
-      subject: `Commercial Claim Inquiry: ${businessName}`,
-      html: `
-        <h2>New Commercial Claim Inquiry</h2>
-        <h3>Business Information</h3>
-        <ul>
-          <li><strong>Business:</strong> ${businessName}</li>
-          <li><strong>Contact:</strong> ${contactName}</li>
-          <li><strong>Phone:</strong> ${phone}</li>
-          <li><strong>Email:</strong> ${email}</li>
-        </ul>
-        <h3>Claim Details</h3>
-        <ul>
-          <li><strong>Property Type:</strong> ${propertyType}</li>
-          <li><strong>Damage Type:</strong> ${damageType}</li>
-          <li><strong>Estimated Loss:</strong> ${estimatedLoss}</li>
-          <li><strong>Insurance Company:</strong> ${insuranceCompany || 'Not specified'}</li>
-          <li><strong>Claim Status:</strong> ${claimStatus || 'Not specified'}</li>
-        </ul>
-        <h3>Additional Notes</h3>
-        <p>${notes || 'No additional notes'}</p>
-        <p><em>Inquiry submitted: ${new Date().toLocaleString()}</em></p>
-      `,
-    };
-
-    // Send email
-    if (process.env.SMTP_USER && process.env.SMTP_PASS) {
-      await transporter.sendMail(adminMailOptions);
-    }
-
-    res.status(200).json({ 
-      success: true, 
-      message: 'Inquiry submitted successfully' 
-    });
-  } catch (error) {
-    console.error('Commercial claim error:', error);
-    res.status(500).json({ 
-      success: false, 
-      message: 'Failed to submit inquiry' 
-    });
-  }
-});
-
-// Appointment Booking Endpoint
+// Appointment Endpoint
 app.post('/api/appointment', async (req, res) => {
   try {
-    const {
-      name,
-      email,
-      phone,
-      company,
-      consultationType,
-      preferredDate,
-      preferredTime,
-      notes
-    } = req.body;
+    const { name, email, phone, company, consultationType, preferredDate, preferredTime, notes } = req.body;
 
-    // Email to admin
+    // Validate required fields
+    if (!name || !email || !phone || !consultationType) {
+      return res.status(400).json({
+        success: false,
+        message: 'Name, email, phone, and consultation type are required fields'
+      });
+    }
+
+    // Create admin notification email
     const adminMailOptions = {
-      from: process.env.SMTP_USER,
-      to: process.env.ADMIN_EMAIL || 'admin@cjclaimservices.com',
+      from: process.env.SMTP_USER || 'noreply@example.com',
+      to: process.env.ADMIN_EMAIL || 'admin@example.com',
       subject: `New Appointment Request: ${name}`,
       html: `
         <h2>New Appointment Request</h2>
@@ -206,7 +116,7 @@ app.post('/api/appointment', async (req, res) => {
         </ul>
         <h3>Notes</h3>
         <p>${notes || 'No additional notes'}</p>
-        <p><em>Request submitted: ${new Date().toLocaleString()}</em></p>
+        <em>Request submitted: ${new Date().toLocaleString()}</em>
       `,
     };
 
@@ -215,15 +125,15 @@ app.post('/api/appointment', async (req, res) => {
       await transporter.sendMail(adminMailOptions);
     }
 
-    res.status(200).json({ 
-      success: true, 
-      message: 'Appointment request submitted successfully' 
+    res.status(200).json({
+      success: true,
+      message: 'Appointment request submitted successfully'
     });
   } catch (error) {
     console.error('Appointment error:', error);
-    res.status(500).json({ 
-      success: false, 
-      message: 'Failed to submit appointment request' 
+    res.status(500).json({
+      success: false,
+      message: 'Failed to submit appointment request'
     });
   }
 });
@@ -231,6 +141,19 @@ app.post('/api/appointment', async (req, res) => {
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+// Endpoint AI Chatbot básico
+app.post('/api/chat', async (req, res) => {
+  try {
+    const { message } = req.body;
+    // Ejemplo demo: responde sencillo
+    const aiResponse = `AI-bot response for: "${message}"`;
+    res.json({ response: aiResponse });
+  } catch (error) {
+    console.error('Chat API error:', error);
+    res.status(500).json({ response: 'Error with AI backend' });
+  }
 });
 
 // Serve React app for all other routes
