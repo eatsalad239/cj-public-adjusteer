@@ -37,51 +37,49 @@
  *   "error": "Error message"
  * }
  */
+
 export default async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  // Set CORS headers for frontend-backend communication
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  // Handle OPTIONS request for CORS preflight
+  
+  // Handle preflight request
   if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
+    return res.status(200).end();
   }
-
+  
   // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({
       success: false,
-      error: 'Method not allowed. Please use POST request.'
+      error: 'Method not allowed. Please use POST.'
     });
   }
-
-  // Get API key from environment variable or use default for testing
-  const apiKey = process.env.GEMINI_API_KEY || 'AIzaSyB7ooFivr4gNcxtXP5RByCORwmN4N6cbog';
-
-  // Validate API key
+  
+  // Get API key from environment variable
+  const apiKey = process.env.GEMINI_API_KEY;
+  
   if (!apiKey) {
     return res.status(500).json({
       success: false,
-      error: 'GEMINI_API_KEY is not configured'
+      error: 'GEMINI_API_KEY is not configured on the server'
     });
   }
-
-  // Extract message from request body
+  
+  // Get message from request body
   const { message } = req.body;
-
+  
   if (!message) {
     return res.status(400).json({
       success: false,
       error: 'Message is required in the request body'
     });
   }
-
+  
   try {
     // Call Gemini API with correct model name
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`;
     
     const geminiResponse = await fetch(geminiUrl, {
       method: 'POST',
@@ -96,21 +94,21 @@ export default async function handler(req, res) {
         }]
       })
     });
-
+    
     if (!geminiResponse.ok) {
       const errorData = await geminiResponse.json();
       throw new Error(`Gemini API error: ${errorData.error?.message || geminiResponse.statusText}`);
     }
-
+    
     const data = await geminiResponse.json();
     
     // Extract the response text from Gemini's response structure
     const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
+    
     if (!responseText) {
       throw new Error('No response text received from Gemini API');
     }
-
+    
     // Return successful response
     return res.status(200).json({
       success: true,
