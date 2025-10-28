@@ -5,7 +5,7 @@
  * 
  * Description:
  * This serverless function receives a message from the user via POST request,
- * sends it to the Google Gemini API (using gemini-1.5-flash model),
+ * sends it to the Google Gemini API (using gemini-1.5-pro model),
  * and returns the AI-generated response in English.
  * 
  * Environment Variables:
@@ -34,11 +34,13 @@
  * 
  * {
  *   "success": false,
- *   "error": "Error message"
+ *   "error": "Error message here"
  * }
  */
+
 export default async function handler(req, res) {
-  // Set CORS headers for frontend-backend communication
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
   res.setHeader(
@@ -46,32 +48,31 @@ export default async function handler(req, res) {
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
   );
 
-  // Handle OPTIONS request
+  // Handle preflight OPTIONS request
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
-  // Only accept POST requests
+  // Only allow POST requests for actual API calls
   if (req.method !== 'POST') {
     return res.status(405).json({
       success: false,
-      error: 'Method not allowed. Use POST request.'
+      error: 'Method not allowed. Use POST.'
     });
   }
 
-  // Get API key from environment variables
+  // Get the Gemini API key from environment variables
   const apiKey = process.env.GEMINI_API_KEY;
-
+  
   if (!apiKey) {
     return res.status(500).json({
       success: false,
-      error: 'Gemini API key is not configured on the server'
+      error: 'GEMINI_API_KEY environment variable is not set'
     });
   }
 
-  // Get message from request body
   const { message } = req.body;
-  
+
   if (!message) {
     return res.status(400).json({
       success: false,
@@ -80,8 +81,8 @@ export default async function handler(req, res) {
   }
   
   try {
-    // Call Gemini API with v1 endpoint and gemini-1.5-flash model
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // Call Gemini API with v1beta endpoint and gemini-1.5-pro model
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${apiKey}`;
     
     const geminiResponse = await fetch(geminiUrl, {
       method: 'POST',
