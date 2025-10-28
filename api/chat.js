@@ -5,7 +5,7 @@
  * 
  * Description:
  * This serverless function receives a message from the user via POST request,
- * sends it to the Google Gemini API (using gemini-pro model),
+ * sends it to the Google Gemini API (using gemini-1.5-flash model),
  * and returns the AI-generated response in English.
  * 
  * Environment Variables:
@@ -39,8 +39,7 @@
  */
 
 export default async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  // Set CORS headers for frontend-backend communication
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
   res.setHeader(
@@ -50,8 +49,7 @@ export default async function handler(req, res) {
 
   // Handle OPTIONS request
   if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
+    return res.status(200).end();
   }
 
   // Only accept POST requests
@@ -74,17 +72,17 @@ export default async function handler(req, res) {
 
   // Get message from request body
   const { message } = req.body;
-
+  
   if (!message) {
     return res.status(400).json({
       success: false,
       error: 'Message is required in the request body'
     });
   }
-
+  
   try {
-    // Call Gemini API
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=${apiKey}`;
+    // Call Gemini API with v1 endpoint and gemini-1.5-flash model
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
     
     const geminiResponse = await fetch(geminiUrl, {
       method: 'POST',
@@ -99,24 +97,24 @@ export default async function handler(req, res) {
         }]
       })
     });
-
+    
     if (!geminiResponse.ok) {
       const errorData = await geminiResponse.json();
       throw new Error(`Gemini API error: ${errorData.error?.message || geminiResponse.statusText}`);
     }
-
+    
     const data = await geminiResponse.json();
     
     // Extract the response text from Gemini's response structure
     const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
+    
     if (!responseText) {
       return res.status(200).json({
         success: false,
         response: "No response from AI: check your Gemini API key, quota, or model.",
       });
     }
-
+    
     // Return successful response
     return res.status(200).json({
       success: true,
