@@ -20,13 +20,12 @@ const Hero = () => {
               <span className="text-sm font-semibold">Louisiana Act 144 Compliant - Licensed Public Adjusters</span>
             </div>
             
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
-              your insurance claim denied or underpaid? <span className="gradient-text">Don't settle, we fight for your full recovery</span>
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-[#FFF6D1] mb-6">
+              your insurance claim denied or underpaid? <span className="text-[#FFD700]">Don't settle, we fight for your full recovery</span>
             </h1>
             
             <p className="text-xl text-gray-300 mb-8">
               No-cost inspection. Pay only when your claim is successfully resolved.
-
               <span className="font-semibold">We capture the right evidence, explain your policy provisions in plain language,
               and keep communication organized so your claim is properly considered.</span>
             </p>
