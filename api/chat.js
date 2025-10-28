@@ -37,7 +37,6 @@
  *   "error": "Error message"
  * }
  */
-
 export default async function handler(req, res) {
   // Set CORS headers for frontend-backend communication
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -104,6 +103,7 @@ export default async function handler(req, res) {
     }
     
     const data = await geminiResponse.json();
+    console.log('Gemini response data:', data);
     
     // Extract the response text from Gemini's response structure
     const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
