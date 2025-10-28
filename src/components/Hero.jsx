@@ -21,23 +21,24 @@ const Hero = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
-              Licensed Help to <span className="gradient-text">Prepare, Document, and Present</span> Your Property Claim
+              your insurance claim denied or underpaid? <span className="gradient-text">Don't settle, we fight for your full recovery</span>
             </h1>
             
             <p className="text-xl text-gray-300 mb-8">
-              No-cost inspection. Pay only when your claim is successfully resolved.<br/><br/>
+              No-cost inspection. Pay only when your claim is successfully resolved.
+
               <span className="font-semibold">We capture the right evidence, explain your policy provisions in plain language,
               and keep communication organized so your claim is properly considered.</span>
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link 
+              <Link
                 to="/contractor-partners" 
                 className="btn-primary inline-flex items-center justify-center"
               >
                 <span className="mr-2">🏗️</span> For Contractors
               </Link>
-              <Link 
+              <Link
                 to="/commercial-services" 
                 className="btn-outline !border-white !text-white hover:!bg-white hover:!text-cj-dark inline-flex items-center justify-center"
               >
