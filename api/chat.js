@@ -5,7 +5,7 @@
  * 
  * Description:
  * This serverless function receives a message from the user via POST request,
- * sends it to the Google Gemini API (using gemini-1.0-pro model),
+ * sends it to the Google Gemini API (using gemini-pro model),
  * and returns the AI-generated response in English.
  * 
  * Environment Variables:
@@ -81,8 +81,8 @@ export default async function handler(req, res) {
   }
   
   try {
-    // Call Gemini API with v1beta endpoint and gemini-1.0-pro model
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=${apiKey}`;
+    // Call Gemini API with v1 endpoint and gemini-pro model
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`;
     
     const geminiResponse = await fetch(geminiUrl, {
       method: 'POST',
