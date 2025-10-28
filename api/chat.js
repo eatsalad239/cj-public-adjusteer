@@ -37,7 +37,6 @@
  *   "error": "Error message"
  * }
  */
-
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -55,16 +54,18 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({
       success: false,
-      error: 'Method not allowed. Please use POST.'
+      error: 'Method not allowed. Please use POST request.'
     });
   }
 
-  // Check for GEMINI_API_KEY
-  const apiKey = process.env.GEMINI_API_KEY;
+  // Get API key from environment variable or use default for testing
+  const apiKey = process.env.GEMINI_API_KEY || 'AIzaSyB7ooFivr4gNcxtXP5RByCORwmN4N6cbog';
+
+  // Validate API key
   if (!apiKey) {
     return res.status(500).json({
       success: false,
-      error: 'GEMINI_API_KEY environment variable is not set'
+      error: 'GEMINI_API_KEY is not configured'
     });
   }
 
@@ -115,7 +116,7 @@ export default async function handler(req, res) {
       success: true,
       response: responseText
     });
-
+    
   } catch (error) {
     console.error('Error calling Gemini API:', error);
     return res.status(500).json({
