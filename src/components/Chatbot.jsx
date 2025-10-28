@@ -13,6 +13,7 @@ const Chatbot = () => {
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
+    
     if (inputValue.trim() === '') return;
 
     // Add user message
@@ -34,13 +35,14 @@ const Chatbot = () => {
         },
         body: JSON.stringify({ message: userMessage }),
       });
-
+      
       const data = await response.json();
 
       // Replace typing indicator with AI response
       setMessages([...newMessages, { text: data.response, sender: 'bot' }]);
     } catch (error) {
       console.error('Error fetching AI response:', error);
+      
       // Replace typing indicator with error message
       setMessages([...newMessages, { text: 'Sorry, there was an error processing your message.', sender: 'bot' }]);
     }
@@ -52,7 +54,7 @@ const Chatbot = () => {
       {!isOpen && (
         <button
           onClick={toggleChat}
-          className="fixed bottom-6 right-6 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-colors z-50"
+          className="fixed bottom-6 right-6 bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 transition-all z-50"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -73,17 +75,14 @@ const Chatbot = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-80 h-96 bg-white rounded-lg shadow-2xl flex flex-col z-50">
+        <div className="fixed bottom-6 right-6 w-96 h-[500px] bg-white rounded-lg shadow-2xl flex flex-col z-50">
           {/* Header */}
           <div className="bg-blue-600 text-white p-4 rounded-t-lg flex justify-between items-center">
-            <h3 className="font-semibold">Chat with us</h3>
-            <button
-              onClick={toggleChat}
-              className="text-white hover:text-gray-200"
-            >
+            <h3 className="font-semibold">Chat Assistant</h3>
+            <button onClick={toggleChat} className="hover:bg-blue-700 rounded-full p-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="h-5 w-5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
