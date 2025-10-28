@@ -37,7 +37,6 @@
  *   "error": "Error message"
  * }
  */
-
 export default async function handler(req, res) {
   // Set CORS headers for frontend-backend communication
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -81,8 +80,8 @@ export default async function handler(req, res) {
   }
   
   try {
-    // Call Gemini API with v1 endpoint and gemini-1.5-flash model
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // Call Gemini API with v1beta endpoint and gemini-1.5-flash model
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
     
     const geminiResponse = await fetch(geminiUrl, {
       method: 'POST',
@@ -104,6 +103,7 @@ export default async function handler(req, res) {
     }
     
     const data = await geminiResponse.json();
+    console.log('Gemini response data:', data);
     
     // Extract the response text from Gemini's response structure
     const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
