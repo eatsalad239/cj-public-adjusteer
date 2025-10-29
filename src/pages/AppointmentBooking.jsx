@@ -19,6 +19,7 @@ const AppointmentBooking = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     try {
       // Send to both API and GHL webhook
       await Promise.all([
@@ -30,7 +31,9 @@ const AppointmentBooking = () => {
           time: formData.preferredTime
         })
       ]);
+      
       toast.success('Appointment request submitted! We\'ll confirm within 24 hours.');
+      
       setFormData({
         name: '', email: '', phone: '', company: '',
         consultationType: '', preferredDate: '', preferredTime: '', notes: ''
@@ -55,14 +58,16 @@ const AppointmentBooking = () => {
             Schedule a free consultation with our expert public adjusters
           </p>
 
-          <form onSubmit={handleSubmit} className="card">
+          <form className="card" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Full Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Full Name *
                 </label>
                 <input
                   type="text"
+                  name="name"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -70,24 +75,28 @@ const AppointmentBooking = () => {
                 />
               </div>
 
+              {/* Company Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Company Name
                 </label>
                 <input
                   type="text"
+                  name="company"
                   value={formData.company}
                   onChange={(e) => setFormData({...formData, company: e.target.value})}
                   className="input-field"
                 />
               </div>
 
+              {/* Email Address */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Email Address *
                 </label>
                 <input
                   type="email"
+                  name="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -95,12 +104,14 @@ const AppointmentBooking = () => {
                 />
               </div>
 
+              {/* Phone Number */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Phone Number *
                 </label>
                 <input
                   type="tel"
+                  name="phone"
                   required
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
@@ -108,11 +119,13 @@ const AppointmentBooking = () => {
                 />
               </div>
 
+              {/* Consultation Type */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Consultation Type *
                 </label>
                 <select
+                  name="consultationType"
                   required
                   value={formData.consultationType}
                   onChange={(e) => setFormData({...formData, consultationType: e.target.value})}
@@ -126,12 +139,14 @@ const AppointmentBooking = () => {
                 </select>
               </div>
 
+              {/* Preferred Date */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Preferred Date
                 </label>
                 <input
                   type="date"
+                  name="preferredDate"
                   value={formData.preferredDate}
                   onChange={(e) => setFormData({...formData, preferredDate: e.target.value})}
                   className="input-field"
@@ -139,6 +154,7 @@ const AppointmentBooking = () => {
                 />
               </div>
 
+              {/* Preferred Time */}
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Preferred Time
@@ -148,7 +164,7 @@ const AppointmentBooking = () => {
                     <label key={time} className="flex items-center">
                       <input
                         type="radio"
-                        name="time"
+                        name="preferredTime"
                         value={time}
                         checked={formData.preferredTime === time}
                         onChange={(e) => setFormData({...formData, preferredTime: e.target.value})}
@@ -160,11 +176,13 @@ const AppointmentBooking = () => {
                 </div>
               </div>
 
+              {/* Additional Information */}
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Additional Information
                 </label>
                 <textarea
+                  name="notes"
                   rows="4"
                   value={formData.notes}
                   onChange={(e) => setFormData({...formData, notes: e.target.value})}
