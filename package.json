@@ -20,6 +20,7 @@
     "express": "^4.21.2",
     "framer-motion": "^10.16.16",
     "nodemailer": "^7.0.7",
+    "openai": "^4.0.0",
     "react": "^18.2.0",
     "react-calendar": "^4.6.1",
     "react-dom": "^18.2.0",

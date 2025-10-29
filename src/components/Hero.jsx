@@ -20,12 +20,12 @@ const Hero = () => {
               <span className="text-sm font-semibold">Louisiana Act 144 Compliant - Licensed Public Adjusters</span>
             </div>
             
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
-              Licensed Help to <span className="gradient-text">Prepare, Document, and Present</span> Your Property Claim
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-[#FFF6D1] mb-6">
+              Your insurance claim denied or underpaid? <span className="text-[#FFD700]">Don't settle, we fight for your full recovery</span>
             </h1>
             
             <p className="text-xl text-gray-300 mb-8">
-              No-cost inspection. Pay only when your claim is successfully resolved.<br/><br/>
+              No-cost inspection. Pay only when your claim is successfully resolved.
               <span className="font-semibold">We capture the right evidence, explain your policy provisions in plain language,
               and keep communication organized so your claim is properly considered.</span>
             </p>
@@ -70,12 +70,12 @@ const Hero = () => {
             <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
               <h3 className="text-2xl font-bold text-white mb-4">Quick Claim Assessment</h3>
               <form className="space-y-4">
-                <input
+                <input 
                   type="text"
                   placeholder="Your Name"
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cj-red"
                 />
-                <input
+                <input 
                   type="tel"
                   placeholder="Phone Number"
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cj-red"

@@ -42,7 +42,6 @@ const CommercialServicesPage = () => {
     'Fire & Smoke Damage',
     'Business Interruption',
     'Roof & Structural Damage',
-    'Mold & Environmental',
     'Vandalism & Theft',
     'Equipment Breakdown',
   ];
@@ -360,7 +359,6 @@ const CommercialServicesPage = () => {
                     <option value="fire">Fire/Smoke</option>
                     <option value="business_interruption">Business Interruption</option>
                     <option value="roof">Roof/Structural</option>
-                    <option value="mold">Mold/Environmental</option>
                     <option value="other">Other</option>
                   </select>
                 </div>
