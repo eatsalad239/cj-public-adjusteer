@@ -1,15 +1,15 @@
 /**
- * Gemini Chat Serverless Function
+ * OpenRouter Chat Serverless Function
  * 
  * Endpoint: POST /api/chat
  * 
  * Description:
  * This serverless function receives a message from the user via POST request,
- * sends it to the Google Gemini API (using gemini-2.5-flash model),
+ * sends it to OpenRouter API (using openai/gpt-4o model),
  * and returns the AI-generated response in English.
  * 
  * Environment Variables:
- * - GEMINI_API_KEY: Your Google Gemini API key (required)
+ * - OPENROUTER_API_KEY: Your OpenRouter API key (required)
  * 
  * Request Example:
  * POST /api/chat
@@ -34,98 +34,73 @@
  * 
  * {
  *   "success": false,
- *   "error": "Error message here"
+ *   "error": "Error message"
  * }
  */
+
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  baseURL: 'https://openrouter.ai/api/v1',
+  apiKey: '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',
+  defaultHeaders: {
+    'HTTP-Referer': 'https://cj-public-adjusteer.vercel.app', // Optional. Site URL for rankings on openrouter.ai.
+    'X-Title': 'CJ Public Adjuster', // Optional. Site title for rankings on openrouter.ai.
+  },
+});
+
 export default async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  );
-
-  // Handle preflight OPTIONS request
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  // Only allow POST requests for actual API calls
+  // Only allow POST requests
   if (req.method !== 'POST') {
-    return res.status(405).json({
-      success: false,
-      error: 'Method not allowed. Use POST.'
+    return res.status(405).json({ 
+      success: false, 
+      error: 'Method not allowed. Use POST.' 
     });
   }
 
-  // Get the Gemini API key from environment variables
-  const apiKey = process.env.GEMINI_API_KEY;
-  
-  if (!apiKey) {
-    return res.status(500).json({
-      success: false,
-      error: 'GEMINI_API_KEY environment variable is not set'
-    });
-  }
-
-  const { message } = req.body;
-
-  if (!message) {
-    return res.status(400).json({
-      success: false,
-      error: 'Message is required in the request body'
-    });
-  }
-  
   try {
-    // Call Gemini API with v1 endpoint and gemini-2.5-flash model
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-    
-    const geminiResponse = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        contents: [{
-          parts: [{
-            text: message
-          }]
-        }]
-      })
-    });
-    
-    if (!geminiResponse.ok) {
-      const errorData = await geminiResponse.json();
-      throw new Error(`Gemini API error: ${errorData.error?.message || geminiResponse.statusText}`);
-    }
-    
-    const data = await geminiResponse.json();
-    console.log('Gemini response data:', data);
-    
-    // Extract the response text from Gemini's response structure
-    const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    
-    if (!responseText) {
-      return res.status(200).json({
-        success: false,
-        response: "No response from AI: check your Gemini API key, quota, or model.",
+    // Extract message from request body
+    const { message } = req.body;
+
+    // Validate message
+    if (!message || typeof message !== 'string' || message.trim().length === 0) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Message is required and must be a non-empty string.' 
       });
     }
-    
+
+    // Call OpenRouter API via OpenAI SDK
+    const completion = await openai.chat.completions.create({
+      model: 'openai/gpt-4o',
+      messages: [
+        {
+          role: 'system',
+          content: 'You are a helpful assistant for CJ Public Adjuster, specializing in insurance claims. Respond in English.'
+        },
+        {
+          role: 'user',
+          content: message
+        }
+      ],
+    });
+
+    // Extract response
+    const aiResponse = completion.choices[0].message.content;
+
     // Return successful response
     return res.status(200).json({
       success: true,
-      response: responseText
+      response: aiResponse
     });
-    
+
   } catch (error) {
-    console.error('Error calling Gemini API:', error);
-    return res.status(200).json({
+    console.error('OpenRouter API Error:', error);
+    
+    return res.status(500).json({
       success: false,
-      response: `There was an error: ${error.message || 'Internal server error'}`
+      error: 'Failed to generate response. Please try again later.',
+      details: error.message
     });
   }
 }
