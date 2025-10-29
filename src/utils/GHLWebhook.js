@@ -1,111 +1,33 @@
-// Go High Level Webhook Integration
+// Webhook integration removed
 class GHLWebhook {
   static async send(data) {
-    try {
-      const webhookUrl = window.GHL_WEBHOOK_URL || process.env.REACT_APP_GHL_WEBHOOK_URL;
-      const locationId = window.GHL_LOCATION_ID || process.env.REACT_APP_GHL_LOCATION_ID;
-
-      if (!webhookUrl) {
-        console.warn('GHL Webhook URL not configured');
-        return false;
-      }
-
-      const payload = {
-        ...data,
-        location_id: locationId,
-        timestamp: new Date().toISOString(),
-        source: 'website',
-        user_agent: navigator.userAgent,
-        page_url: window.location.href,
-      };
-
-      const response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      return response.ok;
-    } catch (error) {
-      console.error('GHL Webhook error:', error);
-      return false;
-    }
+    console.log('Webhook integration disabled');
+    return true;
   }
 
   static async sendLead(formData) {
-    return this.send({
-      event: 'new_lead',
-      lead_type: formData.type || 'general',
-      contact: {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        company: formData.company,
-      },
-      details: formData,
-      tags: ['website_lead', formData.type],
-    });
+    console.log('Lead submission (webhook disabled):', formData);
+    return true;
   }
 
   static async sendPartnerApplication(formData) {
-    return this.send({
-      event: 'partner_application',
-      application_type: 'contractor_partner',
-      contact: {
-        company_name: formData.companyName,
-        contact_name: formData.contactName,
-        email: formData.email,
-        phone: formData.phone,
-      },
-      details: {
-        contractor_type: formData.contractorType,
-        monthly_jobs: formData.monthlyJobs,
-        current_challenge: formData.currentChallenge,
-        preferred_contact: formData.preferredContact,
-      },
-      tags: ['partner_application', 'contractor', formData.contractorType],
-      priority: 'high',
-    });
+    console.log('Partner application (webhook disabled):', formData);
+    return true;
   }
 
   static async sendAppointment(appointmentData) {
-    return this.send({
-      event: 'appointment_booked',
-      appointment_type: appointmentData.type,
-      contact: {
-        name: appointmentData.name,
-        email: appointmentData.email,
-        phone: appointmentData.phone,
-        company: appointmentData.company,
-      },
-      appointment: {
-        date: appointmentData.date,
-        time: appointmentData.time,
-        type: appointmentData.consultationType,
-        notes: appointmentData.notes,
-      },
-      tags: ['appointment', appointmentData.type],
-    });
+    console.log('Appointment booking (webhook disabled):', appointmentData);
+    return true;
   }
 
   static async trackFormAbandonment(formId, fieldReached) {
-    return this.send({
-      event: 'form_abandonment',
-      form_id: formId,
-      last_field: fieldReached,
-      abandonment_time: new Date().toISOString(),
-    });
+    console.log('Form abandonment tracking (webhook disabled)');
+    return true;
   }
 
   static async trackEngagement(action, details) {
-    return this.send({
-      event: 'user_engagement',
-      action,
-      details,
-      session_duration: Math.floor((Date.now() - window.sessionStart) / 1000),
-    });
+    console.log('Engagement tracking (webhook disabled):', action, details);
+    return true;
   }
 }
 
