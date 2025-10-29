@@ -1,41 +1,36 @@
-export default class GHLWebhook {
-    constructor() {
-        this.webhookUrl = 'https://services.leadconnectorhq.com/hooks/AEybRWw8cgDIMKRzNa0T/webhook-trigger/54ff1e67-5ee9-41f5-a0ba-d35943ec44d2';
+class GHLWebhook {
+    static async sendLead(leadData) {
+        const response = await fetch('https://services.leadconnectorhq.com/hooks/AEybRWw8cgDIMKRzNa0T/webhook-trigger/54ff1e67-5ee9-41f5-a0ba-d35943ec44d2', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(leadData),
+        });
+        return response.json();
     }
 
-    async sendLead(leadData) {
-        return await this.sendRequest('sendLead', leadData);
+    static async sendPartnerApplication(applicationData) {
+        const response = await fetch('https://services.leadconnectorhq.com/hooks/AEybRWw8cgDIMKRzNa0T/webhook-trigger/54ff1e67-5ee9-41f5-a0ba-d35943ec44d2', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(applicationData),
+        });
+        return response.json();
     }
 
-    async sendPartnerApplication(applicationData) {
-        return await this.sendRequest('sendPartnerApplication', applicationData);
-    }
-
-    async sendAppointment(appointmentData) {
-        return await this.sendRequest('sendAppointment', appointmentData);
-    }
-
-    async trackFormAbandonment(abandonmentData) {
-        return await this.sendRequest('trackFormAbandonment', abandonmentData);
-    }
-
-    async trackEngagement(engagementData) {
-        return await this.sendRequest('trackEngagement', engagementData);
-    }
-
-    async sendRequest(action, data) {
-        try {
-            const response = await fetch(this.webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ action, data }),
-            });
-            return await response.json();
-        } catch (error) {
-            console.error('Error sending request:', error);
-            throw error;
-        }
+    static async sendAppointment(appointmentData) {
+        const response = await fetch('https://services.leadconnectorhq.com/hooks/AEybRWw8cgDIMKRzNa0T/webhook-trigger/54ff1e67-5ee9-41f5-a0ba-d35943ec44d2', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(appointmentData),
+        });
+        return response.json();
     }
 }
+
+export default GHLWebhook;
