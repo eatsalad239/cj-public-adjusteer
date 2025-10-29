@@ -1,10 +1,70 @@
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import GHLWebhook from '../utils/GHLWebhook';
 
 export default function ContactForm() {
   const [status, setStatus] = useState({ type: '', message: '' });
+  const [formData, setFormData] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    address: ''
+  });
 
-  // No handleSubmit - let the form submit naturally
-  // GHL script will intercept the native submit event
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      // Send to GHL webhook with all form data
+      await GHLWebhook.sendLead({
+        firstName: formData.first_name,
+        lastName: formData.last_name,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+        type: 'contact_form',
+        source: 'website_contact_form'
+      });
+      
+      setStatus({
+        type: 'success',
+        message: 'Thank you! We\'ll contact you within 24 hours for your free claim review.'
+      });
+      
+      toast.success('Form submitted successfully! We\'ll be in touch soon.');
+      
+      // Reset form
+      setFormData({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        address: ''
+      });
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        setStatus({ type: '', message: '' });
+      }, 5000);
+      
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setStatus({
+        type: 'error',
+        message: 'Failed to submit form. Please call us directly at (504) 252-8204.'
+      });
+      toast.error('Failed to submit form. Please try again or call us directly.');
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   return (
     <section id="contact" className="py-20 bg-gray-50">
@@ -29,11 +89,9 @@ export default function ContactForm() {
             </div>
           )}
 
-          {/* Native HTML form - no preventDefault, no JS submit handling */}
           <form
             className="space-y-6 bg-white p-8 rounded-xl shadow-lg"
-            method="POST"
-            action="#"
+            onSubmit={handleSubmit}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -48,6 +106,8 @@ export default function ContactForm() {
                   id="first_name"
                   name="first_name"
                   required
+                  value={formData.first_name}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
                 />
               </div>
@@ -63,6 +123,8 @@ export default function ContactForm() {
                   id="last_name"
                   name="last_name"
                   required
+                  value={formData.last_name}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
                 />
               </div>
@@ -80,6 +142,8 @@ export default function ContactForm() {
                 id="email"
                 name="email"
                 required
+                value={formData.email}
+                onChange={handleChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
               />
             </div>
@@ -96,6 +160,8 @@ export default function ContactForm() {
                 id="phone"
                 name="phone"
                 required
+                value={formData.phone}
+                onChange={handleChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
               />
             </div>
@@ -111,6 +177,8 @@ export default function ContactForm() {
                 type="text"
                 id="address"
                 name="address"
+                value={formData.address}
+                onChange={handleChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
               />
             </div>
