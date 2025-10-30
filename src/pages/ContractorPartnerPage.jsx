@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  CheckCircleIcon, 
+import {
+  CheckCircleIcon,
   XCircleIcon,
   CurrencyDollarIcon,
   UserGroupIcon,
@@ -37,15 +37,6 @@ const ContractorPartnerPage = () => {
     'Solicit insurance work',
   ];
 
-  const afterAct144 = [
-    'Must focus on retail pricing only',
-    'Cannot mention insurance to customers',
-    'Risk heavy fines for violations',
-    'Losing insurance-based revenue',
-    'Customers confused about process',
-    'Competition getting harder',
-  ];
-
   const partnerBenefits = [
     {
       icon: CurrencyDollarIcon,
@@ -72,12 +63,11 @@ const ContractorPartnerPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send to both API and GHL webhook
       await Promise.all([
         api.partnerApplication(formData),
         GHLWebhook.sendPartnerApplication(formData)
       ]);
-      toast.success('Partnership application submitted! We\'ll contact you within 24 hours.');
+      toast.success("Partnership application submitted! We'll contact you within 24 hours.");
       setFormData({
         companyName: '',
         contactName: '',
@@ -108,21 +98,21 @@ const ContractorPartnerPage = () => {
               <ExclamationTriangleIcon className="h-5 w-5 mr-2" />
               <span className="text-sm font-semibold">Act 144 Compliance Solution for Contractors</span>
             </div>
-            
+
             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
               Turn Act 144 Into Your <span className="gradient-text">Competitive Advantage</span>
             </h1>
-            
+
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-              While other contractors struggle with the new laws, partner with CJ Claim Services 
+              While other contractors struggle with the new laws, partner with CJ Claim Services
               to legally handle insurance claims and keep your revenue flowing.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="#apply" className="btn-primary">
+              <a className="btn-primary" href="#apply">
                 Become a Partner
               </a>
-              <a href="tel:504-252-8204" className="btn-outline !border-white !text-white hover:!bg-white hover:!text-cj-dark inline-flex items-center justify-center">
+              <a className="btn-outline !border-white !text-white hover:!bg-white hover:!text-cj-dark inline-flex items-center justify-center" href="tel:504-252-8204">
                 <PhoneIcon className="h-5 w-5 mr-2" />
                 Speak to Partnership Team
               </a>
@@ -163,7 +153,7 @@ const ContractorPartnerPage = () => {
               </h3>
               <ul className="space-y-3">
                 {beforeAct144.map((item, index) => (
-                  <li key={index} className="flex items-start">
+                  <li className="flex items-start" key={index}>
                     <XCircleIcon className="h-5 w-5 text-red-500 mr-3 mt-0.5 flex-shrink-0" />
                     <span className="text-gray-700 line-through">{item}</span>
                   </li>
@@ -259,7 +249,7 @@ const ContractorPartnerPage = () => {
       </section>
 
       {/* Application Form */}
-      <section id="apply" className="py-20 bg-white">
+      <section className="py-20 bg-white" id="apply">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -276,7 +266,7 @@ const ContractorPartnerPage = () => {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="card">
+            <form className="card" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -286,7 +276,7 @@ const ContractorPartnerPage = () => {
                     type="text"
                     required
                     value={formData.companyName}
-                    onChange={(e) => setFormData({...formData, companyName: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                     className="input-field"
                   />
                 </div>
@@ -299,7 +289,7 @@ const ContractorPartnerPage = () => {
                     type="text"
                     required
                     value={formData.contactName}
-                    onChange={(e) => setFormData({...formData, contactName: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
                     className="input-field"
                   />
                 </div>
@@ -312,7 +302,7 @@ const ContractorPartnerPage = () => {
                     type="tel"
                     required
                     value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="input-field"
                   />
                 </div>
@@ -325,7 +315,7 @@ const ContractorPartnerPage = () => {
                     type="email"
                     required
                     value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="input-field"
                   />
                 </div>
@@ -337,7 +327,7 @@ const ContractorPartnerPage = () => {
                   <select
                     required
                     value={formData.contractorType}
-                    onChange={(e) => setFormData({...formData, contractorType: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, contractorType: e.target.value })}
                     className="input-field"
                   >
                     <option value="">Select Type</option>
@@ -355,7 +345,7 @@ const ContractorPartnerPage = () => {
                   </label>
                   <select
                     value={formData.monthlyJobs}
-                    onChange={(e) => setFormData({...formData, monthlyJobs: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, monthlyJobs: e.target.value })}
                     className="input-field"
                   >
                     <option value="">Select Range</option>
@@ -371,9 +361,9 @@ const ContractorPartnerPage = () => {
                     Biggest Challenge with Act 144
                   </label>
                   <textarea
-                    rows="3"
+                    rows={3}
                     value={formData.currentChallenge}
-                    onChange={(e) => setFormData({...formData, currentChallenge: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, currentChallenge: e.target.value })}
                     className="input-field"
                     placeholder="Tell us how Act 144 is affecting your business..."
                   />
@@ -390,82 +380,4 @@ const ContractorPartnerPage = () => {
                         name="contact"
                         value="phone"
                         checked={formData.preferredContact === 'phone'}
-                        onChange={(e) => setFormData({...formData, preferredContact: e.target.value})}
-                        className="mr-2"
-                      />
-                      Phone
-                    </label>
-                    <label className="flex items-center">
-                      <input
-                        type="radio"
-                        name="contact"
-                        value="email"
-                        checked={formData.preferredContact === 'email'}
-                        onChange={(e) => setFormData({...formData, preferredContact: e.target.value})}
-                        className="mr-2"
-                      />
-                      Email
-                    </label>
-                    <label className="flex items-center">
-                      <input
-                        type="radio"
-                        name="contact"
-                        value="text"
-                        checked={formData.preferredContact === 'text'}
-                        onChange={(e) => setFormData({...formData, preferredContact: e.target.value})}
-                        className="mr-2"
-                      />
-                      Text
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8">
-                <button type="submit" className="w-full btn-primary">
-                  Submit Partnership Application
-                  <ArrowRightIcon className="h-5 w-5 ml-2 inline" />
-                </button>
-              </div>
-
-              <p className="text-xs text-gray-500 mt-4 text-center">
-                By submitting this form, you agree to our partnership terms and conditions. 
-                We respect your privacy and will never share your information.
-              </p>
-            </form>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-cj-red">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <LightBulbIcon className="h-16 w-16 text-white/80 mx-auto mb-6" />
-            <h2 className="text-4xl font-serif font-bold text-white mb-6">
-              Don't Let Act 144 Kill Your Business
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              Join 50+ Louisiana contractors who are thriving with our partnership program. 
-              Keep your insurance-based revenue flowing legally and ethically.
-            </p>
-            <a 
-              href="tel:504-252-8204" 
-              className="bg-white text-cj-red px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors inline-flex items-center"
-            >
-              <PhoneIcon className="h-5 w-5 mr-2" />
-              Call Partnership Team: (504) 252-8204
-            </a>
-          </motion.div>
-        </div>
-      </section>
-    </div>
-  );
-};
-
-export default ContractorPartnerPage;
+                        onChange={(e) => setFormData({ ...formData, preferredContact: e.target
