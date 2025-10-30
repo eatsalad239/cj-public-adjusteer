@@ -1,125 +1,115 @@
-// Go High Level Webhook Integration
+// Go High Level API Integration (Direct Contact Creation)
 class GHLWebhook {
   static async send(data) {
     try {
-      const webhookUrl = window.GHL_WEBHOOK_URL || import.meta.env.VITE_GHL_WEBHOOK_URL;
-      const locationId = window.GHL_LOCATION_ID || import.meta.env.VITE_GHL_LOCATION_ID;
+      const apiKey = import.meta.env.VITE_GHL_API_KEY;
+      const locationId = import.meta.env.VITE_GHL_LOCATION_ID;
 
-      if (!webhookUrl) {
-        console.warn('GHL Webhook URL not configured');
+      if (!apiKey || !locationId) {
+        console.warn('GHL API credentials not configured');
+        console.log('API Key exists:', !!apiKey);
+        console.log('Location ID exists:', !!locationId);
         return false;
       }
 
-      const payload = {
-        ...data,
-        location_id: locationId,
-        timestamp: new Date().toISOString(),
-        source: 'website',
-        user_agent: navigator.userAgent,
-        page_url: window.location.href,
-      };
+      console.log('Creating contact in GHL...', data);
 
-      console.log('Sending to GHL:', payload); // Debug log
-
-      const response = await fetch(webhookUrl, {
+      const response = await fetch(`https://services.leadconnectorhq.com/contacts/`, {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
+          'Version': '2021-07-28'
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          locationId: locationId,
+          ...data
+        }),
       });
 
       if (!response.ok) {
-        console.error('GHL Response error:', response.status, response.statusText);
+        const errorText = await response.text();
+        console.error('GHL API error:', response.status, errorText);
         return false;
       }
 
-      console.log('GHL webhook success');
+      const result = await response.json();
+      console.log('GHL contact created successfully:', result);
       return true;
     } catch (error) {
-      console.error('GHL Webhook error:', error);
+      console.error('GHL API error:', error);
       return false;
     }
   }
 
   static async sendLead(formData) {
-    // Construct full name from firstName and lastName
     const fullName = `${formData.firstName || ''} ${formData.lastName || ''}`.trim();
     
     return this.send({
-      event: 'new_lead',
-      lead_type: formData.type || 'general',
-      // Send data in flat structure for easier GHL mapping
       firstName: formData.firstName || '',
       lastName: formData.lastName || '',
       name: fullName,
       email: formData.email || '',
       phone: formData.phone || '',
-      address: formData.address || '',
-      company: formData.companyName || '',
-      licenseNumber: formData.licenseNumber || '',
-      preferredAppointmentTime: formData.preferredAppointmentTime || '',
-      claimDetails: formData.claimDetails || '',
-      sourceForm: formData.sourceForm || 'contact_form',
-      tags: ['website_lead', formData.type || 'general'],
+      address1: formData.address || '',
+      companyName: formData.companyName || '',
+      source: formData.sourceForm || 'website_contact_form',
+      tags: ['website_lead', formData.type || 'contact_form'],
+      customFields: [
+        { key: 'license_number', value: formData.licenseNumber || '' },
+        { key: 'preferred_appointment_time', value: formData.preferredAppointmentTime || '' },
+        { key: 'claim_details', value: formData.claimDetails || '' }
+      ]
     });
   }
 
   static async sendPartnerApplication(formData) {
     return this.send({
-      event: 'partner_application',
-      application_type: 'contractor_partner',
-      companyName: formData.companyName,
-      contactName: formData.contactName,
-      email: formData.email,
-      phone: formData.phone,
-      contractorType: formData.contractorType,
-      monthlyJobs: formData.monthlyJobs,
-      currentChallenge: formData.currentChallenge,
-      preferredContact: formData.preferredContact,
-      tags: ['partner_application', 'contractor', formData.contractorType],
-      priority: 'high',
+      firstName: formData.contactName ? formData.contactName.split(' ')[0] : '',
+      lastName: formData.contactName ? formData.contactName.split(' ').slice(1).join(' ') : '',
+      name: formData.contactName || '',
+      email: formData.email || '',
+      phone: formData.phone || '',
+      companyName: formData.companyName || '',
+      source: 'partner_application',
+      tags: ['partner_application', 'contractor', formData.contractorType || ''],
+      customFields: [
+        { key: 'contractor_type', value: formData.contractorType || '' },
+        { key: 'monthly_jobs', value: formData.monthlyJobs || '' },
+        { key: 'current_challenge', value: formData.currentChallenge || '' },
+        { key: 'preferred_contact', value: formData.preferredContact || '' }
+      ]
     });
   }
 
   static async sendAppointment(appointmentData) {
     return this.send({
-      event: 'appointment_booked',
-      appointment_type: appointmentData.type,
-      name: appointmentData.name,
-      email: appointmentData.email,
-      phone: appointmentData.phone,
-      company: appointmentData.company,
-      appointmentDate: appointmentData.date,
-      appointmentTime: appointmentData.time,
-      consultationType: appointmentData.consultationType,
-      notes: appointmentData.notes,
-      tags: ['appointment', appointmentData.type],
+      firstName: appointmentData.name ? appointmentData.name.split(' ')[0] : '',
+      lastName: appointmentData.name ? appointmentData.name.split(' ').slice(1).join(' ') : '',
+      name: appointmentData.name || '',
+      email: appointmentData.email || '',
+      phone: appointmentData.phone || '',
+      companyName: appointmentData.company || '',
+      source: 'appointment_booking',
+      tags: ['appointment', appointmentData.type || ''],
+      customFields: [
+        { key: 'appointment_date', value: appointmentData.date || '' },
+        { key: 'appointment_time', value: appointmentData.time || '' },
+        { key: 'consultation_type', value: appointmentData.consultationType || '' },
+        { key: 'appointment_notes', value: appointmentData.notes || '' }
+      ]
     });
   }
 
   static async trackFormAbandonment(formId, fieldReached) {
-    return this.send({
-      event: 'form_abandonment',
-      form_id: formId,
-      last_field: fieldReached,
-      abandonment_time: new Date().toISOString(),
-    });
+    console.log('Form abandonment:', formId, fieldReached);
+    return true;
   }
 
   static async trackEngagement(action, details) {
-    return this.send({
-      event: 'user_engagement',
-      action,
-      details,
-      session_duration: Math.floor((Date.now() - (window.sessionStart || Date.now())) / 1000),
-    });
+    console.log('User engagement:', action, details);
+    return true;
   }
-}
-
-// Track session start
-if (typeof window !== 'undefined') {
-  window.sessionStart = window.sessionStart || Date.now();
 }
 
 export default GHLWebhook;
