@@ -1,98 +1,73 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { CalendarIcon, ClockIcon, PhoneIcon } from '@heroicons/react/24/outline';
-import { toast } from 'react-hot-toast';
-import GHLWebhook from '../utils/GHLWebhook';
-import api from '../utils/api';
+import React from 'react';
+import { CalendarIcon, PhoneIcon } from '@heroicons/react/24/outline';
 
 const AppointmentBooking = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    consultationType: '',
-    preferredDate: '',
-    preferredTime: '',
-    notes: ''
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const payload = {
-        name: formData.name || '',
-        email: formData.email || '',
-        phone: formData.phone || '',
-        company: formData.company || '',
-        consultationType: formData.consultationType || '',
-        preferredDate: formData.preferredDate || '',
-        preferredTime: formData.preferredTime || '',
-        notes: formData.notes || '',
-        firstName: '',
-        lastName: '',
-        address: '',
-        companyName: '',
-        licenseNumber: '',
-        claimDetails: '',
-        source: 'website_appointment',
-        type: 'appointment',
-        sourceForm: 'appointment_form',
-      };
-
-      await Promise.all([
-        api.appointment(payload),
-        GHLWebhook.sendAppointment(payload),
-      ]);
-
-      toast.success("Appointment request submitted! We'll confirm within 24 hours.");
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        consultationType: '',
-        preferredDate: '',
-        preferredTime: '',
-        notes: ''
-      });
-    } catch (error) {
-      toast.error('Failed to submit appointment. Please call us directly.');
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 py-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <h1 className="text-4xl font-serif font-bold text-gray-900 mb-4 text-center">Book Your Consultation</h1>
-          <p className="text-xl text-gray-600 text-center mb-12">Schedule a free consultation with our expert public adjusters</p>
-          <form className="card" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        <div className="bg-white rounded-xl shadow-xl p-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            Schedule Your Free Consultation
+          </h2>
+          <form method="post" action="">
+            <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                <input type="text" name="name" required value={formData.name} onChange={handleChange} className="input-field" />
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
-                <input type="text" name="company" value={formData.company} onChange={handleChange} className="input-field" />
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                <input type="email" name="email" required value={formData.email} onChange={handleChange} className="input-field" />
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                  Phone Number *
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
-                <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className="input-field" />
+                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                  Company (Optional)
+                </label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                />
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Consultation Type *</label>
-                <select name="consultationType" required value={formData.consultationType} onChange={handleChange} className="input-field">
+              <div className="md:col-span-2">
+                <label htmlFor="consultationType" className="block text-sm font-medium text-gray-700 mb-2">
+                  Consultation Type *
+                </label>
+                <select
+                  id="consultationType"
+                  name="consultationType"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                >
                   <option value="">Select Type</option>
                   <option value="commercial">Commercial Property Claim</option>
                   <option value="residential">Residential Property Claim</option>
@@ -101,40 +76,65 @@ const AppointmentBooking = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Date</label>
-                <input type="date" name="preferredDate" value={formData.preferredDate} onChange={handleChange} className="input-field" min={new Date().toISOString().split('T')[0]} />
+                <label htmlFor="preferredDate" className="block text-sm font-medium text-gray-700 mb-2">
+                  Preferred Date
+                </label>
+                <input
+                  type="date"
+                  id="preferredDate"
+                  name="preferredDate"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                />
+              </div>
+              <div>
+                <label htmlFor="preferredTime" className="block text-sm font-medium text-gray-700 mb-2">
+                  Preferred Time
+                </label>
+                <select
+                  id="preferredTime"
+                  name="preferredTime"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                >
+                  <option value="">Select Time</option>
+                  <option value="Morning (9-12)">Morning (9-12)</option>
+                  <option value="Afternoon (12-4)">Afternoon (12-4)</option>
+                  <option value="Evening (4-6)">Evening (4-6)</option>
+                </select>
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Time</label>
-                <div className="grid grid-cols-3 gap-4">
-                  {['Morning (9-12)', 'Afternoon (12-4)', 'Evening (4-6)'].map(time => (
-                    <label className="flex items-center" key={time}>
-                      <input type="radio" name="preferredTime" value={time} checked={formData.preferredTime === time} onChange={handleChange} className="mr-2" />
-                      {time}
-                    </label>
-                  ))}
-                </div>
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Additional Information</label>
-                <textarea name="notes" rows={4} value={formData.notes} onChange={handleChange} className="input-field" placeholder="Tell us about your situation or any specific questions..." />
+                <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-2">
+                  Additional Information
+                </label>
+                <textarea
+                  id="notes"
+                  name="notes"
+                  rows={4}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                  placeholder="Tell us about your situation or any specific questions..."
+                />
               </div>
             </div>
             <div className="mt-8">
-              <button className="w-full btn-primary" type="submit">
-                <CalendarIcon className="h-5 w-5 mr-2 inline" />
+              <button
+                type="submit"
+                className="w-full bg-red-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-red-700 transition-colors duration-200 shadow-lg hover:shadow-xl flex items-center justify-center"
+              >
+                <CalendarIcon className="h-5 w-5 mr-2" />
                 Schedule Consultation
               </button>
             </div>
           </form>
           <div className="mt-8 text-center">
             <p className="text-gray-600 mb-4">Prefer to call?</p>
-            <a className="btn-outline inline-flex items-center" href="tel:504-252-8204">
+            <a
+              className="inline-flex items-center px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+              href="tel:504-252-8204"
+            >
               <PhoneIcon className="h-5 w-5 mr-2" />
               (504) 252-8204
             </a>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
