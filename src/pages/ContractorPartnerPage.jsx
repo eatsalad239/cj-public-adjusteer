@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React from 'react';
 import {
   CheckCircleIcon,
-  XCircleIcon,
   CurrencyDollarIcon,
   UserGroupIcon,
   ShieldCheckIcon,
@@ -12,190 +10,171 @@ import {
   LightBulbIcon,
   ExclamationTriangleIcon,
 } from '@heroicons/react/24/outline';
-import { toast } from 'react-hot-toast';
-import GHLWebhook from '../utils/GHLWebhook';
-import api from '../utils/api';
 
 const ContractorPartnerPage = () => {
-  const [formData, setFormData] = useState({
-    companyName: '',
-    contactName: '',
-    phone: '',
-    email: '',
-    contractorType: '',
-    monthlyJobs: '',
-    currentChallenge: '',
-    preferredContact: 'phone',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      // Universal payload with all possible fields (blank-safe) and sourceForm
-      const payload = {
-        companyName: formData.companyName || '',
-        contactName: formData.contactName || '',
-        phone: formData.phone || '',
-        email: formData.email || '',
-        contractorType: formData.contractorType || '',
-        monthlyJobs: formData.monthlyJobs || '',
-        currentChallenge: formData.currentChallenge || '',
-        preferredContact: formData.preferredContact || '',
-        firstName: '',
-        lastName: '',
-        address: '',
-        preferredAppointmentTime: '',
-        claimDetails: '',
-        source: 'website_partner_application',
-        type: 'partner_application',
-        sourceForm: 'partner_application_form',
-      };
-
-      // Send to internal API and GHL using the universal payload
-      await api.partnerApplication(payload);
-      await GHLWebhook.sendPartnerApplication(payload);
-
-      toast.success('Application submitted! We\'ll get back to you soon.');
-      setFormData({
-        companyName: '',
-        contactName: '',
-        phone: '',
-        email: '',
-        contractorType: '',
-        monthlyJobs: '',
-        currentChallenge: '',
-        preferredContact: 'phone',
-      });
-    } catch (err) {
-      console.error('Partner application error:', err);
-      toast.error('Failed to submit application. Please try again.');
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-5xl mx-auto px-4 py-12">
-        <h1 className="text-3xl font-bold mb-6">Contractor Partner Application</h1>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-xl shadow">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
-            <input
-              className="input-field"
-              type="text"
-              name="companyName"
-              value={formData.companyName}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Contact Name</label>
-            <input
-              className="input-field"
-              type="text"
-              name="contactName"
-              value={formData.contactName}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-            <input
-              className="input-field"
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-            <input
-              className="input-field"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Contractor Type</label>
-            <select
-              className="input-field"
-              name="contractorType"
-              value={formData.contractorType}
-              onChange={handleChange}
-            >
-              <option value="">Select Type</option>
-              <option value="roofing">Roofing</option>
-              <option value="general">General Contractor</option>
-              <option value="restoration">Restoration Company</option>
-              <option value="siding">Siding/Exterior</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Average Monthly Jobs</label>
-            <select
-              className="input-field"
-              name="monthlyJobs"
-              value={formData.monthlyJobs}
-              onChange={handleChange}
-            >
-              <option value="">Select Range</option>
-              <option value="1-5">1-5 jobs</option>
-              <option value="6-10">6-10 jobs</option>
-              <option value="11-20">11-20 jobs</option>
-              <option value="20+">20+ jobs</option>
-            </select>
-          </div>
-          <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Biggest Challenge with Act 144</label>
-            <textarea
-              className="input-field"
-              rows={3}
-              name="currentChallenge"
-              value={formData.currentChallenge}
-              onChange={handleChange}
-              placeholder="Tell us how Act 144 is affecting your business..."
-            />
-          </div>
-          <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Contact Method</label>
-            <div className="flex space-x-4">
-              <label className="flex items-center">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Partner with CJ Public Adjusters
+          </h1>
+          <p className="text-xl text-gray-600">
+            Join our network of trusted contractors
+          </p>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-xl p-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Contractor Partnership Application
+          </h2>
+          <form method="post" action="">
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-2">
+                  Company Name *
+                </label>
                 <input
-                  type="radio"
-                  name="preferredContact"
-                  value="phone"
-                  checked={formData.preferredContact === 'phone'}
-                  onChange={handleChange}
+                  type="text"
+                  id="companyName"
+                  name="companyName"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
                 />
-                <span className="ml-2">Phone</span>
-              </label>
-              <label className="flex items-center">
+              </div>
+              <div>
+                <label htmlFor="contactName" className="block text-sm font-medium text-gray-700 mb-2">
+                  Contact Name *
+                </label>
                 <input
-                  type="radio"
-                  name="preferredContact"
-                  value="email"
-                  checked={formData.preferredContact === 'email'}
-                  onChange={handleChange}
+                  type="text"
+                  id="contactName"
+                  name="contactName"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
                 />
-                <span className="ml-2">Email</span>
-              </label>
+              </div>
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                  Phone Number *
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                />
+              </div>
+              <div>
+                <label htmlFor="contractorType" className="block text-sm font-medium text-gray-700 mb-2">
+                  Contractor Type *
+                </label>
+                <select
+                  id="contractorType"
+                  name="contractorType"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                >
+                  <option value="">Select Type</option>
+                  <option value="roofing">Roofing</option>
+                  <option value="restoration">Restoration</option>
+                  <option value="plumbing">Plumbing</option>
+                  <option value="electrical">Electrical</option>
+                  <option value="general">General Contractor</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="monthlyJobs" className="block text-sm font-medium text-gray-700 mb-2">
+                  Monthly Job Capacity
+                </label>
+                <input
+                  type="number"
+                  id="monthlyJobs"
+                  name="monthlyJobs"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label htmlFor="currentChallenge" className="block text-sm font-medium text-gray-700 mb-2">
+                  Biggest Challenge with Act 144
+                </label>
+                <textarea
+                  id="currentChallenge"
+                  name="currentChallenge"
+                  rows={3}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                  placeholder="Tell us how Act 144 is affecting your business..."
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Preferred Contact Method
+                </label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="preferredContact"
+                      value="phone"
+                      defaultChecked
+                      className="mr-2"
+                    />
+                    <span>Phone</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="preferredContact"
+                      value="email"
+                      className="mr-2"
+                    />
+                    <span>Email</span>
+                  </label>
+                </div>
+              </div>
+              <div className="md:col-span-2">
+                <button
+                  type="submit"
+                  className="w-full bg-red-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-red-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
+                >
+                  Submit Application
+                </button>
+              </div>
             </div>
+          </form>
+        </div>
+
+        <div className="mt-12 grid md:grid-cols-3 gap-6">
+          <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+            <CurrencyDollarIcon className="h-12 w-12 text-red-600 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Higher Payouts</h3>
+            <p className="text-gray-600">Get paid what your work is worth</p>
           </div>
-          <div className="md:col-span-2">
-            <button type="submit" className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold">
-              Submit Application
-            </button>
+          <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+            <UserGroupIcon className="h-12 w-12 text-red-600 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Quality Leads</h3>
+            <p className="text-gray-600">Work with vetted clients</p>
           </div>
-        </form>
+          <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+            <ShieldCheckIcon className="h-12 w-12 text-red-600 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Professional Support</h3>
+            <p className="text-gray-600">We handle the claims process</p>
+          </div>
+        </div>
       </div>
     </div>
   );
