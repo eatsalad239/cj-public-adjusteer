@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { 
+import React from 'react';
+import {
   BuildingOfficeIcon,
   BuildingStorefrontIcon,
   HomeModernIcon,
@@ -11,24 +10,8 @@ import {
   PhoneIcon,
   CheckCircleIcon
 } from '@heroicons/react/24/outline';
-import { toast } from 'react-hot-toast';
-import GHLWebhook from '../utils/GHLWebhook';
-import api from '../utils/api';
 
 const CommercialServicesPage = () => {
-  const [formData, setFormData] = useState({
-    businessName: '',
-    contactName: '',
-    phone: '',
-    email: '',
-    propertyType: '',
-    damageType: '',
-    estimatedLoss: '',
-    insuranceCompany: '',
-    claimStatus: '',
-    notes: ''
-  });
-
   const propertyTypes = [
     { icon: BuildingOfficeIcon, name: 'Office Building', value: 'office' },
     { icon: BuildingStorefrontIcon, name: 'Retail/Restaurant', value: 'retail' },
@@ -42,415 +25,193 @@ const CommercialServicesPage = () => {
     'Fire & Smoke Damage',
     'Business Interruption',
     'Roof & Structural Damage',
-    'Vandalism & Theft',
-    'Equipment Breakdown',
   ];
-
-  const stats = [
-    { value: '$25M+', label: 'Commercial Claims Recovered' },
-    { value: '200+', label: 'Business Clients Served' },
-    { value: '48hr', label: 'Average Response Time' },
-    { value: '1,000+', label: 'Claims Handled' },
-  ];
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      // Send to both API and GHL webhook
-      await Promise.all([
-        api.commercialClaim(formData),
-        GHLWebhook.sendLead({
-          ...formData,
-          type: 'commercial_claim'
-        })
-      ]);
-      toast.success('Commercial claim inquiry submitted! We\'ll contact you within 24 hours.');
-      // Reset form
-      setFormData({
-        businessName: '',
-        contactName: '',
-        phone: '',
-        email: '',
-        propertyType: '',
-        damageType: '',
-        estimatedLoss: '',
-        insuranceCompany: '',
-        claimStatus: '',
-        notes: ''
-      });
-    } catch (error) {
-      toast.error('Failed to submit inquiry. Please try again or call us directly.');
-    }
-  };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-gray-900 via-cj-dark to-black py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
-              Commercial Property <span className="gradient-text">Claims Experts</span>
-            </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-              Licensed public adjusters serving Louisiana businesses with professional insurance claim handling. 
-              We understand the complexities of commercial claims and advocate for fair settlements.
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-lg p-4"
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Commercial Property Claims
+          </h1>
+          <p className="text-xl text-gray-600">
+            Expert assistance for your commercial insurance claim
+          </p>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-xl p-8 mb-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Get Your Free Commercial Claim Evaluation
+          </h2>
+          <form method="post" action="">
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="businessName" className="block text-sm font-medium text-gray-700 mb-2">
+                  Business Name *
+                </label>
+                <input
+                  type="text"
+                  id="businessName"
+                  name="businessName"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                />
+              </div>
+              <div>
+                <label htmlFor="contactName" className="block text-sm font-medium text-gray-700 mb-2">
+                  Contact Name *
+                </label>
+                <input
+                  type="text"
+                  id="contactName"
+                  name="contactName"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                />
+              </div>
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                  Phone Number *
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                />
+              </div>
+              <div>
+                <label htmlFor="propertyType" className="block text-sm font-medium text-gray-700 mb-2">
+                  Property Type *
+                </label>
+                <select
+                  id="propertyType"
+                  name="propertyType"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
                 >
-                  <div className="text-3xl font-bold text-cj-red">{stat.value}</div>
-                  <div className="text-sm text-gray-300">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Property Types Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">
-              We Handle All Commercial Property Types
-            </h2>
-            <p className="text-xl text-gray-600">
-              From small retail shops to large industrial complexes
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {propertyTypes.map((type, index) => (
-              <motion.div
-                key={type.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="card text-center hover:shadow-xl transition-shadow"
-              >
-                <type.icon className="h-16 w-16 text-cj-red mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900">{type.name}</h3>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Claims We Handle */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">
-              Commercial Claims We Handle
-            </h2>
-            <p className="text-xl text-gray-600">
-              Expert representation for all types of commercial property damage
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {commercialClaims.map((claim, index) => (
-              <motion.div
-                key={claim}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.05 }}
-                viewport={{ once: true }}
-                className="flex items-center bg-white rounded-lg p-4 shadow-md"
-              >
-                <CheckCircleIcon className="h-6 w-6 text-green-500 mr-3 flex-shrink-0" />
-                <span className="text-gray-700 font-medium">{claim}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">
-              Our Commercial Claims Process
-            </h2>
-            <p className="text-xl text-gray-600">
-              Fast, professional, and thorough - designed for minimal business disruption
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                step: '1',
-                title: 'Emergency Response',
-                description: 'We respond within 48 hours to document damage and start your claim process immediately.',
-                icon: ClockIcon,
-              },
-              {
-                step: '2',
-                title: 'Thorough Documentation',
-                description: 'Complete documentation of all damages, business interruption losses, and additional expenses.',
-                icon: DocumentCheckIcon,
-              },
-              {
-                step: '3',
-                title: 'Professional Advocacy',
-                description: 'Professional claim handling and documentation to pursue a fair and appropriate settlement with your insurance company.',
-                icon: ChartBarIcon,
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="card">
-                  <div className="absolute -top-4 left-6 bg-cj-red text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl">
-                    {item.step}
-                  </div>
-                  <item.icon className="h-12 w-12 text-cj-red mb-4 mt-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-gray-600">{item.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">
-                Start Your Commercial Claim
-              </h2>
-              <p className="text-xl text-gray-600">
-                Get expert help with your commercial property insurance claim
-              </p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="card">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Business Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.businessName}
-                    onChange={(e) => setFormData({...formData, businessName: e.target.value})}
-                    className="input-field"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Contact Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.contactName}
-                    onChange={(e) => setFormData({...formData, contactName: e.target.value})}
-                    className="input-field"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="input-field"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="input-field"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Property Type *
-                  </label>
-                  <select
-                    required
-                    value={formData.propertyType}
-                    onChange={(e) => setFormData({...formData, propertyType: e.target.value})}
-                    className="input-field"
-                  >
-                    <option value="">Select Type</option>
-                    <option value="office">Office Building</option>
-                    <option value="retail">Retail/Restaurant</option>
-                    <option value="multifamily">Multi-Family</option>
-                    <option value="industrial">Industrial/Warehouse</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Type of Damage *
-                  </label>
-                  <select
-                    required
-                    value={formData.damageType}
-                    onChange={(e) => setFormData({...formData, damageType: e.target.value})}
-                    className="input-field"
-                  >
-                    <option value="">Select Damage Type</option>
-                    <option value="hurricane">Hurricane/Wind</option>
-                    <option value="flood">Flood/Water</option>
-                    <option value="fire">Fire/Smoke</option>
-                    <option value="business_interruption">Business Interruption</option>
-                    <option value="roof">Roof/Structural</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Estimated Loss
-                  </label>
-                  <select
-                    value={formData.estimatedLoss}
-                    onChange={(e) => setFormData({...formData, estimatedLoss: e.target.value})}
-                    className="input-field"
-                  >
-                    <option value="">Select Range</option>
-                    <option value="under_50k">Under $50,000</option>
-                    <option value="50k_100k">$50,000 - $100,000</option>
-                    <option value="100k_250k">$100,000 - $250,000</option>
-                    <option value="250k_500k">$250,000 - $500,000</option>
-                    <option value="500k_1m">$500,000 - $1M</option>
-                    <option value="over_1m">Over $1M</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Claim Status
-                  </label>
-                  <select
-                    value={formData.claimStatus}
-                    onChange={(e) => setFormData({...formData, claimStatus: e.target.value})}
-                    className="input-field"
-                  >
-                    <option value="">Select Status</option>
-                    <option value="not_filed">Not Filed Yet</option>
-                    <option value="filed_pending">Filed - Pending</option>
-                    <option value="denied">Denied</option>
-                    <option value="underpaid">Underpaid</option>
-                    <option value="disputed">In Dispute</option>
-                  </select>
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Insurance Company
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.insuranceCompany}
-                    onChange={(e) => setFormData({...formData, insuranceCompany: e.target.value})}
-                    className="input-field"
-                    placeholder="Name of your insurance carrier"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Additional Information
-                  </label>
-                  <textarea
-                    rows="4"
-                    value={formData.notes}
-                    onChange={(e) => setFormData({...formData, notes: e.target.value})}
-                    className="input-field"
-                    placeholder="Tell us more about your claim or damage..."
-                  />
-                </div>
+                  <option value="">Select Property Type</option>
+                  <option value="office">Office Building</option>
+                  <option value="retail">Retail/Restaurant</option>
+                  <option value="multifamily">Multi-Family</option>
+                  <option value="industrial">Industrial/Warehouse</option>
+                </select>
               </div>
-
-              <div className="mt-8">
-                <button type="submit" className="w-full btn-primary">
-                  Submit Commercial Claim Inquiry
-                </button>
+              <div>
+                <label htmlFor="damageType" className="block text-sm font-medium text-gray-700 mb-2">
+                  Type of Damage *
+                </label>
+                <select
+                  id="damageType"
+                  name="damageType"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                >
+                  <option value="">Select Damage Type</option>
+                  <option value="hurricane">Hurricane & Wind Damage</option>
+                  <option value="flood">Flood & Water Damage</option>
+                  <option value="fire">Fire & Smoke Damage</option>
+                  <option value="business_interruption">Business Interruption</option>
+                  <option value="roof">Roof & Structural Damage</option>
+                </select>
               </div>
-
-              <p className="text-xs text-gray-500 mt-4 text-center">
-                All information is kept strictly confidential. We will contact you within 24-48 hours.
-              </p>
-            </form>
-
-            <div className="mt-8 text-center">
-              <p className="text-gray-600 mb-4">Need immediate assistance?</p>
-              <a 
-                href="tel:504-252-8204" 
-                className="btn-outline inline-flex items-center"
-              >
-                <PhoneIcon className="h-5 w-5 mr-2" />
-                Call Now: (504) 252-8204
-              </a>
+              <div>
+                <label htmlFor="estimatedLoss" className="block text-sm font-medium text-gray-700 mb-2">
+                  Estimated Loss
+                </label>
+                <select
+                  id="estimatedLoss"
+                  name="estimatedLoss"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                >
+                  <option value="">Select Range</option>
+                  <option value="under_50k">Under $50,000</option>
+                  <option value="50k_100k">$50,000 - $100,000</option>
+                  <option value="100k_500k">$100,000 - $500,000</option>
+                  <option value="500k_1m">$500,000 - $1M</option>
+                  <option value="over_1m">Over $1M</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="insuranceCompany" className="block text-sm font-medium text-gray-700 mb-2">
+                  Insurance Company
+                </label>
+                <input
+                  type="text"
+                  id="insuranceCompany"
+                  name="insuranceCompany"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                  placeholder="Name of your insurance carrier"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-2">
+                  Additional Information
+                </label>
+                <textarea
+                  id="notes"
+                  name="notes"
+                  rows={4}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+                  placeholder="Tell us more about your claim or damage..."
+                />
+              </div>
             </div>
-          </motion.div>
+            <div className="mt-8">
+              <button
+                type="submit"
+                className="w-full bg-red-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-red-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
+              >
+                Submit Commercial Claim Inquiry
+              </button>
+            </div>
+            <p className="text-xs text-gray-500 mt-4 text-center">
+              All information is kept strictly confidential. We will contact you within 24-48 hours.
+            </p>
+          </form>
+          <div className="mt-8 text-center">
+            <p className="text-gray-600 mb-4">Need immediate assistance?</p>
+            <a
+              href="tel:504-252-8204"
+              className="inline-flex items-center px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+            >
+              <PhoneIcon className="h-5 w-5 mr-2" />
+              Call Now: (504) 252-8204
+            </a>
+          </div>
         </div>
-      </section>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+            <ChartBarIcon className="h-12 w-12 text-red-600 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Maximize Recovery</h3>
+            <p className="text-gray-600">Get the full value of your claim</p>
+          </div>
+          <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+            <ClockIcon className="h-12 w-12 text-red-600 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Fast Response</h3>
+            <p className="text-gray-600">24-48 hour initial assessment</p>
+          </div>
+          <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+            <DocumentCheckIcon className="h-12 w-12 text-red-600 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Expert Documentation</h3>
+            <p className="text-gray-600">Professional claim preparation</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
